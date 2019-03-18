@@ -127,6 +127,7 @@ public interface CharSequence {
      * @return an IntStream of char values from this sequence
      * @since 1.8
      */
+    // TODO: 19-3-18 待理解
     public default IntStream chars() {
         class CharIterator implements PrimitiveIterator.OfInt {
             int cur = 0;
@@ -174,6 +175,7 @@ public interface CharSequence {
      * @return an IntStream of Unicode code points from this sequence
      * @since 1.8
      */
+    // TODO: 19-3-18 待理解
     public default IntStream codePoints() {
         class CodePointIterator implements PrimitiveIterator.OfInt {
             int cur = 0;
