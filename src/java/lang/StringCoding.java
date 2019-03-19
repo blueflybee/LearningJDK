@@ -57,6 +57,7 @@ class StringCoding {
     private final static ThreadLocal<SoftReference<StringEncoder>> encoder =
         new ThreadLocal<>();
 
+    //不支持的字符集告警
     private static boolean warnUnsupportedCharset = true;
 
     private static <T> T deref(ThreadLocal<SoftReference<T>> tl) {

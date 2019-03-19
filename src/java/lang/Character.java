@@ -4681,6 +4681,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @since  1.7
      */
     public static boolean isBmpCodePoint(int codePoint) {
+        //按位右移操作，移动得到的空位以0填充
         return codePoint >>> 16 == 0;
         // Optimized form of:
         //     codePoint >= MIN_VALUE && codePoint <= MAX_VALUE
@@ -5046,6 +5047,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
     }
 
     /**
+     * ok>>
      * Returns the leading surrogate (a
      * <a href="http://www.unicode.org/glossary/#high_surrogate_code_unit">
      * high surrogate code unit</a>) of the
@@ -5068,6 +5070,12 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @return  the leading surrogate code unit used to represent the
      *          character in the UTF-16 encoding
      * @since   1.7
+     *
+     * >>以下是utf-16对扩充部分unicode高10位数值进行代理值计算：
+     * 1、codePoint - MIN_SUPPLEMENTARY_CODE_POINT获取超出部分长度;
+     * 2、超出部分值右移10位（即截取高10位存储值，总共20位）;
+     * 3、第2步所得结果加上MIN_HIGH_SURROGATE;
+     * utf-16编码方式见 https://blog.csdn.net/wusj3/article/details/88632685。
      */
     public static char highSurrogate(int codePoint) {
         return (char) ((codePoint >>> 10)
@@ -5075,6 +5083,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
     }
 
     /**
+     * ok>>
      * Returns the trailing surrogate (a
      * <a href="http://www.unicode.org/glossary/#low_surrogate_code_unit">
      * low surrogate code unit</a>) of the
@@ -5097,6 +5106,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @return  the trailing surrogate code unit used to represent the
      *          character in the UTF-16 encoding
      * @since   1.7
+     *
+     * >>原理同 {@link #highSurrogate}
      */
     public static char lowSurrogate(int codePoint) {
         return (char) ((codePoint & 0x3ff) + MIN_LOW_SURROGATE);

@@ -59,6 +59,7 @@ import java.util.stream.StreamSupport;
 public interface CharSequence {
 
     /**
+     * ok>
      * Returns the length of this character sequence.  The length is the number
      * of 16-bit <code>char</code>s in the sequence.
      *
@@ -67,6 +68,7 @@ public interface CharSequence {
     int length();
 
     /**
+     * ok>
      * Returns the <code>char</code> value at the specified index.  An index ranges from zero
      * to <tt>length() - 1</tt>.  The first <code>char</code> value of the sequence is at
      * index zero, the next at index one, and so on, as for array
@@ -87,6 +89,7 @@ public interface CharSequence {
     char charAt(int index);
 
     /**
+     * ok>
      * Returns a <code>CharSequence</code> that is a subsequence of this sequence.
      * The subsequence starts with the <code>char</code> value at the specified index and
      * ends with the <code>char</code> value at index <tt>end - 1</tt>.  The length
@@ -107,6 +110,7 @@ public interface CharSequence {
     CharSequence subSequence(int start, int end);
 
     /**
+     * ok>
      * Returns a string containing the characters in this sequence in the same
      * order as this sequence.  The length of the string will be the length of
      * this sequence.
@@ -116,6 +120,7 @@ public interface CharSequence {
     public String toString();
 
     /**
+     * todo>
      * Returns a stream of {@code int} zero-extending the {@code char} values
      * from this sequence.  Any char which maps to a <a
      * href="{@docRoot}/java/lang/Character.html#unicode">surrogate code
@@ -127,7 +132,6 @@ public interface CharSequence {
      * @return an IntStream of char values from this sequence
      * @since 1.8
      */
-    // TODO: 19-3-18 待理解
     public default IntStream chars() {
         class CharIterator implements PrimitiveIterator.OfInt {
             int cur = 0;
@@ -162,6 +166,7 @@ public interface CharSequence {
     }
 
     /**
+     * todo>
      * Returns a stream of code point values from this sequence.  Any surrogate
      * pairs encountered in the sequence are combined as if by {@linkplain
      * Character#toCodePoint Character.toCodePoint} and the result is passed
@@ -175,7 +180,6 @@ public interface CharSequence {
      * @return an IntStream of Unicode code points from this sequence
      * @since 1.8
      */
-    // TODO: 19-3-18 待理解
     public default IntStream codePoints() {
         class CodePointIterator implements PrimitiveIterator.OfInt {
             int cur = 0;

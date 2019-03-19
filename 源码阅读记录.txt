@@ -1,14 +1,7 @@
 # Learning JDK 8
 
 ## 阅读记录
-
-1.java.lang
---> Object                                                                                                              ok
-
-
-
-2.java.io
---> Serializable                                                                                                        ok
+StringCoding
 
 
 

@@ -130,6 +130,7 @@ public final class String
         new ObjectStreamField[0];
 
     /**
+     * ok>>
      * Initializes a newly created {@code String} object so that it represents
      * an empty character sequence.  Note that use of this constructor is
      * unnecessary since Strings are immutable.
@@ -139,6 +140,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Initializes a newly created {@code String} object so that it represents
      * the same sequence of characters as the argument; in other words, the
      * newly created string is a copy of the argument string. Unless an
@@ -154,6 +156,7 @@ public final class String
     }
 
     /**
+     * ok>
      * Allocates a new {@code String} so that it represents the sequence of
      * characters currently contained in the character array argument. The
      * contents of the character array are copied; subsequent modification of
@@ -167,6 +170,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Allocates a new {@code String} that contains characters from a subarray
      * of the character array argument. The {@code offset} argument is the
      * index of the first character of the subarray and the {@code count}
@@ -208,6 +212,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Allocates a new {@code String} that contains characters from a subarray
      * of the <a href="Character.html#unicode">Unicode code point</a> array
      * argument.  The {@code offset} argument is the index of the first code
@@ -215,6 +220,8 @@ public final class String
      * length of the subarray.  The contents of the subarray are converted to
      * {@code char}s; subsequent modification of the {@code int} array does not
      * affect the newly created string.
+     *
+     * >>从unicode字符集的code point数组中截取子数组，转化成utf-16编码存储在char[] value中
      *
      * @param  codePoints
      *         Array that is the source of Unicode code points
@@ -253,16 +260,21 @@ public final class String
             throw new StringIndexOutOfBoundsException(offset + count);
         }
 
+        //以上先排除所有长度越界情况
+
         final int end = offset + count;
 
         // Pass 1: Compute precise size of char[]
         int n = count;
         for (int i = offset; i < end; i++) {
             int c = codePoints[i];
+            //如果是基本平面（0000——FFFF），正好在一个char范围内，则可以用一个char表示
             if (Character.isBmpCodePoint(c))
                 continue;
+            //如果在基本平面外的有效unicode，则大于一个char的范围，需要用两个char表示，所以char长度需加一
             else if (Character.isValidCodePoint(c))
                 n++;
+            //其它情况表示一个无效的unicode
             else throw new IllegalArgumentException(Integer.toString(c));
         }
 
@@ -376,6 +388,7 @@ public final class String
      * and requested offset & length values used by the String(byte[],..)
      * constructors.
      */
+    //检查offset和length是否在byte数组中越界
     private static void checkBounds(byte[] bytes, int offset, int length) {
         if (length < 0)
             throw new StringIndexOutOfBoundsException(length);
