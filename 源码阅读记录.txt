@@ -1,8 +1,26 @@
 # Learning JDK 8
 
 ## 阅读记录
-StringCoding
 
+
+已经阅读完成并理解：
+Object
+Appendable
+Cloneable
+Serializable
+Objects
+
+初步接触：
+StringCoding
+Charset
+CharsetDecoder
+StringBuffer
+AbstractStringBuilder
+StringBuilder
+Character
+Comparator
+Comparable
+Supplier
 
 
 

@@ -41,6 +41,7 @@ public final class Objects {
     }
 
     /**
+     * ok>>
      * Returns {@code true} if the arguments are equal to each other
      * and {@code false} otherwise.
      * Consequently, if both arguments are {@code null}, {@code true}
@@ -60,6 +61,7 @@ public final class Objects {
     }
 
    /**
+    * ok>>
     * Returns {@code true} if the arguments are deeply equal to each other
     * and {@code false} otherwise.
     *
@@ -82,10 +84,12 @@ public final class Objects {
         else if (a == null || b == null)
             return false;
         else
+            //对嵌套多维数组进行比较，可以是任意多的深度
             return Arrays.deepEquals0(a, b);
     }
 
     /**
+     * ok>>
      * Returns the hash code of a non-{@code null} argument and 0 for
      * a {@code null} argument.
      *
@@ -99,6 +103,7 @@ public final class Objects {
     }
 
    /**
+    * ok>>
     * Generates a hash code for a sequence of input values. The hash
     * code is generated as if all the input values were placed into an
     * array, and that array were hashed by calling {@link
@@ -124,11 +129,14 @@ public final class Objects {
     * @see Arrays#hashCode(Object[])
     * @see List#hashCode
     */
+    //计算多个对象的hashcode，与Object.hashcode的值不同，
+   // 单个对象需要计算hashcode时，最好调用Object.hashcode
     public static int hash(Object... values) {
         return Arrays.hashCode(values);
     }
 
     /**
+     * ok>>
      * Returns the result of calling {@code toString} for a non-{@code
      * null} argument and {@code "null"} for a {@code null} argument.
      *
@@ -143,6 +151,7 @@ public final class Objects {
     }
 
     /**
+     * ok>>
      * Returns the result of calling {@code toString} on the first
      * argument if the first argument is not {@code null} and returns
      * the second argument otherwise.
@@ -160,6 +169,7 @@ public final class Objects {
     }
 
     /**
+     * ok>>
      * Returns 0 if the arguments are identical and {@code
      * c.compare(a, b)} otherwise.
      * Consequently, if both arguments are {@code null} 0
@@ -184,6 +194,7 @@ public final class Objects {
     }
 
     /**
+     * ok>>
      * Checks that the specified object reference is not {@code null}. This
      * method is designed primarily for doing parameter validation in methods
      * and constructors, as demonstrated below:
@@ -198,6 +209,8 @@ public final class Objects {
      * @return {@code obj} if not {@code null}
      * @throws NullPointerException if {@code obj} is {@code null}
      */
+    //运行时判空，在要求一个对象必须为非null的情况下可以使用
+    //可以对构造器和方法中的参数对象作该校验
     public static <T> T requireNonNull(T obj) {
         if (obj == null)
             throw new NullPointerException();
@@ -205,6 +218,7 @@ public final class Objects {
     }
 
     /**
+     * ok>>
      * Checks that the specified object reference is not {@code null} and
      * throws a customized {@link NullPointerException} if it is. This method
      * is designed primarily for doing parameter validation in methods and
@@ -230,6 +244,7 @@ public final class Objects {
     }
 
     /**
+     * ok>>
      * Returns {@code true} if the provided reference is {@code null} otherwise
      * returns {@code false}.
      *
@@ -248,6 +263,7 @@ public final class Objects {
     }
 
     /**
+     * ok>>
      * Returns {@code true} if the provided reference is non-{@code null}
      * otherwise returns {@code false}.
      *
@@ -266,6 +282,7 @@ public final class Objects {
     }
 
     /**
+     * ok>>
      * Checks that the specified object reference is not {@code null} and
      * throws a customized {@link NullPointerException} if it is.
      *
@@ -287,6 +304,8 @@ public final class Objects {
      */
     public static <T> T requireNonNull(T obj, Supplier<String> messageSupplier) {
         if (obj == null)
+            //异常message对象的创建，可以延迟到这里进行
+            //而requireNonNull(Object, String)方法一开始就需要创建一个String对象
             throw new NullPointerException(messageSupplier.get());
         return obj;
     }

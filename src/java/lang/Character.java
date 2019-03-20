@@ -4651,6 +4651,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
     }
 
     /**
+     * ok>>
      * Determines whether the specified code point is a valid
      * <a href="http://www.unicode.org/glossary/#code_point">
      * Unicode code point value</a>.
@@ -4670,6 +4671,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
     }
 
     /**
+     * ok>>
      * Determines whether the specified character (Unicode code point)
      * is in the <a href="#BMP">Basic Multilingual Plane (BMP)</a>.
      * Such code points can be represented using a single {@code char}.
@@ -4725,6 +4727,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see    Character.UnicodeBlock#of(int)
      * @since  1.5
      */
+    //这个char的值是否在Unicode高位代理区域内（\uD800~\uDBFF）
     public static boolean isHighSurrogate(char ch) {
         // Help VM constant-fold; MAX_HIGH_SURROGATE + 1 == MIN_LOW_SURROGATE
         return ch >= MIN_HIGH_SURROGATE && ch < (MAX_HIGH_SURROGATE + 1);
@@ -4749,6 +4752,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see    Character#isHighSurrogate(char)
      * @since  1.5
      */
+    //判断char值是否在低位代理区域
     public static boolean isLowSurrogate(char ch) {
         return ch >= MIN_LOW_SURROGATE && ch < (MAX_LOW_SURROGATE + 1);
     }
@@ -4820,6 +4824,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
     }
 
     /**
+     * ok>>
      * Converts the specified surrogate pair to its supplementary code
      * point value. This method does not validate the specified
      * surrogate pair. The caller must validate it using {@link
@@ -4831,6 +4836,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *         specified surrogate pair.
      * @since  1.5
      */
+    //将高低位代理对转换为扩展区域的Unicode值
     public static int toCodePoint(char high, char low) {
         // Optimized form of:
         // return ((high - MIN_HIGH_SURROGATE) << 10)
@@ -4842,6 +4848,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
     }
 
     /**
+     * ok>>
      * Returns the code point at the given index of the
      * {@code CharSequence}. If the {@code char} value at
      * the given index in the {@code CharSequence} is in the
@@ -4875,6 +4882,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
     }
 
     /**
+     * ok>>
      * Returns the code point at the given index of the
      * {@code char} array. If the {@code char} value at
      * the given index in the {@code char} array is in the
@@ -4900,6 +4908,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
     }
 
     /**
+     * ok>>
      * Returns the code point at the given index of the
      * {@code char} array, where only array elements with
      * {@code index} less than {@code limit} can be used. If
@@ -4933,17 +4942,23 @@ class Character implements java.io.Serializable, Comparable<Character> {
 
     // throws ArrayIndexOutOfBoundsException if index out of bounds
     static int codePointAtImpl(char[] a, int index, int limit) {
+        //获取index对应的char
         char c1 = a[index];
+        //如果该char是高位代理，且下一个index没有越界，则判断是一个扩展区域的Unicode
         if (isHighSurrogate(c1) && ++index < limit) {
+            //获取下一个char
             char c2 = a[index];
+            //判断下一个char是否是低位代理，如果是则由高低代理对恢复扩展Unicode值
             if (isLowSurrogate(c2)) {
                 return toCodePoint(c1, c2);
             }
         }
+        //如果是BMP区域内，则不用换算，char的值就是Unicode值
         return c1;
     }
 
     /**
+     * ok>>
      * Returns the code point preceding the given index of the
      * {@code CharSequence}. If the {@code char} value at
      * {@code (index - 1)} in the {@code CharSequence} is in
@@ -4976,6 +4991,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
     }
 
     /**
+     * ok>>
      * Returns the code point preceding the given index of the
      * {@code char} array. If the {@code char} value at
      * {@code (index - 1)} in the {@code char} array is in
@@ -5001,6 +5017,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
     }
 
     /**
+     * ok>>
      * Returns the code point preceding the given index of the
      * {@code char} array, where only array elements with
      * {@code index} greater than or equal to {@code start}
@@ -5036,9 +5053,13 @@ class Character implements java.io.Serializable, Comparable<Character> {
 
     // throws ArrayIndexOutOfBoundsException if index-1 out of bounds
     static int codePointBeforeImpl(char[] a, int index, int start) {
+        //获取上一个char，即before the index
         char c2 = a[--index];
+        //如果c2是低位代理，且index大于起始终值
         if (isLowSurrogate(c2) && index > start) {
+            //再往前获取一个char
             char c1 = a[--index];
+            //如果c1是高位代理，则返回代理对换算的Unicode
             if (isHighSurrogate(c1)) {
                 return toCodePoint(c1, c2);
             }
@@ -5230,6 +5251,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
     }
 
     /**
+     * ok>>
      * Returns the number of Unicode code points in a subarray of the
      * {@code char} array argument. The {@code offset}
      * argument is the index of the first {@code char} of the
@@ -5257,7 +5279,11 @@ class Character implements java.io.Serializable, Comparable<Character> {
 
     static int codePointCountImpl(char[] a, int offset, int count) {
         int endIndex = offset + count;
+        //n记录最终返回的codePoint数目，初始为endIndex - beginIndex，即设定的区间内的char数量
         int n = count;
+        //遍历区间内的char如果当前char是高位代理且下一个char是低位代理，
+        //说明两个char代表一个codePoint，n减1
+        //如果不是代理，直接处理下一个char
         for (int i = offset; i < endIndex; ) {
             if (isHighSurrogate(a[i++]) && i < endIndex &&
                 isLowSurrogate(a[i])) {
@@ -5325,6 +5351,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
     }
 
     /**
+     * ok>>
      * Returns the index within the given {@code char} subarray
      * that is offset from the given {@code index} by
      * {@code codePointOffset} code points. The
@@ -5368,10 +5395,17 @@ class Character implements java.io.Serializable, Comparable<Character> {
 
     static int offsetByCodePointsImpl(char[]a, int start, int count,
                                       int index, int codePointOffset) {
+        //x代表在index基础上，偏移codePointOffset个code point后的索引，初始等于index
         int x = index;
+        //1、codePointOffset >= 0，右向检索
         if (codePointOffset >= 0) {
+            //limit：x可以遍历的最大索引
             int limit = start + count;
+            //i：记录codePointOffset的递增
             int i;
+            //对i从0到codePointOffset个code point
+            //每个x索引对应的char，检查是否是高位代理且x++，如果不是代理对，则表示code point计数加1，x也加1
+            //如果是代理对，则表示code point计数加1，x需要加2（一个代码点包含两个char）
             for (i = 0; x < limit && i < codePointOffset; i++) {
                 if (isHighSurrogate(a[x++]) && x < limit &&
                     isLowSurrogate(a[x])) {
@@ -5381,7 +5415,9 @@ class Character implements java.io.Serializable, Comparable<Character> {
             if (i < codePointOffset) {
                 throw new IndexOutOfBoundsException();
             }
-        } else {
+        }
+        //2、codePointOffset >= 0，左向检索，原理同右向检索
+        else {
             int i;
             for (i = codePointOffset; x > start && i < 0; i++) {
                 if (isLowSurrogate(a[--x]) && x > start &&

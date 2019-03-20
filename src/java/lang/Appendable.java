@@ -48,6 +48,9 @@ import java.io.IOException;
  *
  * @since 1.5
  */
+//插入接口，提供在字符序列尾部增加字符（串）的能力
+//使用接收Formatter输出的所有对象，必须实现该接口
+//可以插入的字符序列必须是有效的Unicode
 public interface Appendable {
 
     /**

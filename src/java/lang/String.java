@@ -283,9 +283,12 @@ public final class String
 
         for (int i = offset, j = 0; i < end; i++, j++) {
             int c = codePoints[i];
+            //基本平面的unicode，可以用两个字节表示，直接赋值到char
             if (Character.isBmpCodePoint(c))
                 v[j] = (char)c;
             else
+                //其它unicode值，两个字节太小，需要4个字节保存，即两个char。
+                //这些unicode值共20位，其中高10位填充到高位代理，存在第一个char中，低10位填充到低位代理，存到第二个char中
                 Character.toSurrogates(c, v, j++);
         }
 
@@ -293,6 +296,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Allocates a new {@code String} constructed from a subarray of an array
      * of 8-bit integer values.
      *
@@ -350,6 +354,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Allocates a new {@code String} containing characters constructed from
      * an array of 8-bit integer values. Each character <i>c</i>in the
      * resulting string is constructed from the corresponding component
@@ -389,6 +394,7 @@ public final class String
      * constructors.
      */
     //检查offset和length是否在byte数组中越界
+    //ok>>
     private static void checkBounds(byte[] bytes, int offset, int length) {
         if (length < 0)
             throw new StringIndexOutOfBoundsException(length);
@@ -399,6 +405,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Constructs a new {@code String} by decoding the specified subarray of
      * bytes using the specified charset.  The length of the new {@code String}
      * is a function of the charset, and hence may not be equal to the length
@@ -431,15 +438,18 @@ public final class String
      *
      * @since  JDK1.1
      */
+    //指定字符集，构造字符串对象
     public String(byte bytes[], int offset, int length, String charsetName)
             throws UnsupportedEncodingException {
         if (charsetName == null)
             throw new NullPointerException("charsetName");
         checkBounds(bytes, offset, length);
+        //以指定字符集解析byte[]
         this.value = StringCoding.decode(charsetName, bytes, offset, length);
     }
 
     /**
+     * ok>>
      * Constructs a new {@code String} by decoding the specified subarray of
      * bytes using the specified {@linkplain java.nio.charset.Charset charset}.
      * The length of the new {@code String} is a function of the charset, and
@@ -477,6 +487,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Constructs a new {@code String} by decoding the specified array of bytes
      * using the specified {@linkplain java.nio.charset.Charset charset}.  The
      * length of the new {@code String} is a function of the charset, and hence
@@ -505,6 +516,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Constructs a new {@code String} by decoding the specified array of
      * bytes using the specified {@linkplain java.nio.charset.Charset charset}.
      * The length of the new {@code String} is a function of the charset, and
@@ -524,11 +536,13 @@ public final class String
      *
      * @since  1.6
      */
+    //解析整个byte[]
     public String(byte bytes[], Charset charset) {
         this(bytes, 0, bytes.length, charset);
     }
 
     /**
+     * ok>>
      * Constructs a new {@code String} by decoding the specified subarray of
      * bytes using the platform's default charset.  The length of the new
      * {@code String} is a function of the charset, and hence may not be equal
@@ -554,12 +568,14 @@ public final class String
      *
      * @since  JDK1.1
      */
+    //使用jvm默认字符集解析指定长度的byte[]
     public String(byte bytes[], int offset, int length) {
         checkBounds(bytes, offset, length);
         this.value = StringCoding.decode(bytes, offset, length);
     }
 
     /**
+     * ok>>
      * Constructs a new {@code String} by decoding the specified array of bytes
      * using the platform's default charset.  The length of the new {@code
      * String} is a function of the charset, and hence may not be equal to the
@@ -580,6 +596,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Allocates a new string that contains the sequence of characters
      * currently contained in the string buffer argument. The contents of the
      * string buffer are copied; subsequent modification of the string buffer
@@ -595,6 +612,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Allocates a new string that contains the sequence of characters
      * currently contained in the string builder argument. The contents of the
      * string builder are copied; subsequent modification of the string builder
@@ -625,6 +643,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns the length of this string.
      * The length is equal to the number of <a href="Character.html#unicode">Unicode
      * code units</a> in the string.
@@ -632,11 +651,13 @@ public final class String
      * @return  the length of the sequence of characters represented by this
      *          object.
      */
+    //返回char[]长度，即双字节长度。与Unicode码单位的数量相等（utf-16的Unicode单元是2个字节）
     public int length() {
         return value.length;
     }
 
     /**
+     * ok>>
      * Returns {@code true} if, and only if, {@link #length()} is {@code 0}.
      *
      * @return {@code true} if {@link #length()} is {@code 0}, otherwise
@@ -649,6 +670,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns the {@code char} value at the
      * specified index. An index ranges from {@code 0} to
      * {@code length() - 1}. The first {@code char} value of the sequence
@@ -674,6 +696,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns the character (Unicode code point) at the specified
      * index. The index refers to {@code char} values
      * (Unicode code units) and ranges from {@code 0} to
@@ -695,6 +718,7 @@ public final class String
      *             string.
      * @since      1.5
      */
+    //返回Unicode的值
     public int codePointAt(int index) {
         if ((index < 0) || (index >= value.length)) {
             throw new StringIndexOutOfBoundsException(index);
@@ -703,6 +727,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns the character (Unicode code point) before the specified
      * index. The index refers to {@code char} values
      * (Unicode code units) and ranges from {@code 1} to {@link
@@ -733,6 +758,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns the number of Unicode code points in the specified text
      * range of this {@code String}. The text range begins at the
      * specified {@code beginIndex} and extends to the
@@ -761,6 +787,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns the index within this {@code String} that is
      * offset from the given {@code index} by
      * {@code codePointOffset} code points. Unpaired surrogates
@@ -780,6 +807,8 @@ public final class String
      *   of {@code codePointOffset} code points.
      * @since 1.5
      */
+    //返回此String中从给定的index处偏移codePointOffset个code point的索引。
+    //文本范围内由index和codePointOffset给定的未配对代理项各计为一个代码点。
     public int offsetByCodePoints(int index, int codePointOffset) {
         if (index < 0 || index > value.length) {
             throw new IndexOutOfBoundsException();
@@ -789,6 +818,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Copy characters from this string into dst starting at dstBegin.
      * This method doesn't perform any range checking.
      */
@@ -797,6 +827,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Copies characters from this string into the destination character
      * array.
      * <p>
@@ -840,6 +871,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Copies characters from this string into the destination byte array. Each
      * byte receives the 8 low-order bits of the corresponding character. The
      * eight high-order bits of each character are not copied and do not
@@ -882,6 +914,7 @@ public final class String
      *                 dst.length}
      *          </ul>
      */
+    //char的低8位参与拷贝，高8位不参与
     @Deprecated
     public void getBytes(int srcBegin, int srcEnd, byte dst[], int dstBegin) {
         if (srcBegin < 0) {
@@ -906,6 +939,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Encodes this {@code String} into a sequence of bytes using the named
      * charset, storing the result into a new byte array.
      *
@@ -955,6 +989,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Encodes this {@code String} into a sequence of bytes using the
      * platform's default charset, storing the result into a new byte array.
      *
@@ -972,6 +1007,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Compares this string to the specified object.  The result is {@code
      * true} if and only if the argument is not {@code null} and is a {@code
      * String} object that represents the same sequence of characters as this
@@ -987,16 +1023,19 @@ public final class String
      * @see  #equalsIgnoreCase(String)
      */
     public boolean equals(Object anObject) {
+        //地址相等，返回true
         if (this == anObject) {
             return true;
         }
         if (anObject instanceof String) {
             String anotherString = (String)anObject;
             int n = value.length;
+            //长度比较，相等再逐个比较内部的char序列
             if (n == anotherString.value.length) {
                 char v1[] = value;
                 char v2[] = anotherString.value;
                 int i = 0;
+                //每个char都相等，返回true，否则返回false
                 while (n-- != 0) {
                     if (v1[i] != v2[i])
                         return false;
@@ -1005,10 +1044,12 @@ public final class String
                 return true;
             }
         }
+
         return false;
     }
 
     /**
+     * ok>>
      * Compares this string to the specified {@code StringBuffer}.  The result
      * is {@code true} if and only if this {@code String} represents the same
      * sequence of characters as the specified {@code StringBuffer}. This method
@@ -1027,6 +1068,7 @@ public final class String
         return contentEquals((CharSequence)sb);
     }
 
+    //从AbstractStringBuilder中获取value，然后比较长度和每个char，和一般性的比较一样
     private boolean nonSyncContentEquals(AbstractStringBuilder sb) {
         char v1[] = value;
         char v2[] = sb.getValue();
@@ -1043,6 +1085,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Compares this string to the specified {@code CharSequence}.  The
      * result is {@code true} if and only if this {@code String} represents the
      * same sequence of char values as the specified sequence. Note that if the
@@ -1058,9 +1101,12 @@ public final class String
      *
      * @since  1.5
      */
+    //与CharSequence类型比较，根据不同的CharSequence子类实例，分发到不同的比较方法
     public boolean contentEquals(CharSequence cs) {
         // Argument is a StringBuffer, StringBuilder
         if (cs instanceof AbstractStringBuilder) {
+            //StringBuffer是带同步机制的，所以放在synchronized代码块中执行比较
+            //而StringBuilder内部无同步机制
             if (cs instanceof StringBuffer) {
                 synchronized(cs) {
                    return nonSyncContentEquals((AbstractStringBuilder)cs);
@@ -1070,10 +1116,12 @@ public final class String
             }
         }
         // Argument is a String
+        //如果是String，则调用普通的equals方法
         if (cs instanceof String) {
             return equals(cs);
         }
         // Argument is a generic CharSequence
+        //如果是一般的CharSequence，则仅需比较长度和每个char
         char v1[] = value;
         int n = v1.length;
         if (n != cs.length()) {
