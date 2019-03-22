@@ -55,7 +55,7 @@ import java.util.stream.StreamSupport;
  * @since 1.4
  * @spec JSR-51
  */
-
+//抽象一个char的序列
 public interface CharSequence {
 
     /**

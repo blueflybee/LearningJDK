@@ -42,6 +42,7 @@ import java.util.stream.StreamSupport;
 
 /**
  * A compiled representation of a regular expression.
+ * Pattern表示编译后的正则表达式（正则表达式一般是String的实例）
  *
  * <p> A regular expression, specified as a string, must first be compiled into
  * an instance of this class.  The resulting pattern can then be used to create
@@ -49,6 +50,7 @@ import java.util.stream.StreamSupport;
  * java.lang.CharSequence character sequences} against the regular
  * expression.  All of the state involved in performing a match resides in the
  * matcher, so many matchers can share the same pattern.
+ * 一个pattern实例可以被多个matcher共享使用，对于一个正则表达式，创建一个pattern就可以了
  *
  * <p> A typical invocation sequence is thus
  *
@@ -848,6 +850,11 @@ public final class Pattern
      * <p> There is no embedded flag character for enabling literal parsing.
      * @since 1.5
      */
+    //启用字面值解析模式。
+    //        指定此标志后，指定模式的输入字符串就会作为字面值字符序列来对待。输入序列中的元字符或转义序列不具有任何特殊意义。
+    //        标志 CASE_INSENSITIVE 和 UNICODE_CASE 在与此标志一起使用时将对匹配产生影响。其他标志都变得多余了。
+    //        不存在可以启用字面值解析的嵌入式标志字符。
+    //启用这个模式之后，所有元字符、转义字符都被看成普通的字符，不再具有其他意义。
     public static final int LITERAL = 0x10;
 
     /**
@@ -1129,6 +1136,9 @@ public final class Pattern
      * @throws  PatternSyntaxException
      *          If the expression's syntax is invalid
      */
+    //1、对正则表达式进行编译，生成Pattern实例
+    //2、调用Pattern实例的matcher方法，传入需要匹配的CharSequence生成Matcher实例
+    //3、调用Matcher的matches方法对input进行匹配
     public static boolean matches(String regex, CharSequence input) {
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(input);

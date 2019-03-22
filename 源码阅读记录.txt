@@ -4,11 +4,24 @@
 
 
 已经阅读完成并理解：
-Object
-Appendable
-Cloneable
-Serializable
-Objects
+
+
+1、package java.lang;               完成度
+Object                              ok
+Appendable                          ok
+Cloneable                           ok
+Comparable                          ok
+String                              70%
+
+
+2、package java.util
++Objects    ok
+
+package java.util.regex
+
+
+3、package java.io
++Serializable   ok
 
 初步接触：
 StringCoding
@@ -19,8 +32,15 @@ AbstractStringBuilder
 StringBuilder
 Character
 Comparator
-Comparable
 Supplier
+System
+Arrays
+Pattern
+Matcher
+Throwable(异常类簇)
+Locale
+StringJoiner
+Iterable
 
 
 

@@ -24,6 +24,7 @@
  */
 
 /**
+ * ok>>
  * Provides classes that are fundamental to the design of the Java
  * programming language. The most important classes are {@code
  * Object}, which is the root of the class hierarchy, and {@code

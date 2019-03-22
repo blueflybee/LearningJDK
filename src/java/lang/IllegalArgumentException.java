@@ -32,6 +32,7 @@ package java.lang;
  * @author  unascribed
  * @since   JDK1.0
  */
+//对方法参数合法性和有效性校验，如果参数无效，则一般都可以抛出该异常
 public
 class IllegalArgumentException extends RuntimeException {
     /**

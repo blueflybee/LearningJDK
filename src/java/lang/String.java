@@ -40,6 +40,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 /**
+ * <已阅68%>
  * The {@code String} class represents character strings. All
  * string literals in Java programs, such as {@code "abc"}, are
  * implemented as instances of this class.
@@ -107,7 +108,13 @@ import java.util.regex.PatternSyntaxException;
  * @see     java.nio.charset.Charset
  * @since   JDK1.0
  */
+//发现api方法中如果要处理实例变量或静态变量，一般都会声明局部变量来接收全局的实例变量和静态变量。
+//这么做的目的可能有两个：
+//1、不破坏全局（静态）变量的数据;
+//2、使用临时变量可以提高java代码的性能
 
+//String是对所有字符的抽象。其内部char数组存储的是unicode值或者unicode的编码值，
+// String可以根据这个unicode显示世界上已知的所有字符和符号
 public final class String
     implements java.io.Serializable, Comparable<String>, CharSequence {
     /** The value is used for character storage. */
@@ -1164,13 +1171,14 @@ public final class String
      * @see  #equals(Object)
      */
     public boolean equalsIgnoreCase(String anotherString) {
-        return (this == anotherString) ? true
-                : (anotherString != null)
+        return (this == anotherString) ? true//地址相等返回true
+                : (anotherString != null)//anotherString不为null&&长度相等&&regionMatches返回true
                 && (anotherString.value.length == value.length)
                 && regionMatches(true, 0, anotherString, 0, value.length);
     }
 
     /**
+     * ok>>
      * Compares two strings lexicographically.
      * The comparison is based on the Unicode value of each character in
      * the strings. The character sequence represented by this
@@ -1211,10 +1219,12 @@ public final class String
      *          value greater than {@code 0} if this string is
      *          lexicographically greater than the string argument.
      */
+    //对Comparable接口的实现
+    //每个char都相等且长度也相等时，返回0。该逻辑与equals方法一致。
     public int compareTo(String anotherString) {
         int len1 = value.length;
         int len2 = anotherString.value.length;
-        int lim = Math.min(len1, len2);
+        int lim = Math.min(len1, len2);//取较小者的长度来作为比较范围
         char v1[] = value;
         char v2[] = anotherString.value;
 
@@ -1222,15 +1232,22 @@ public final class String
         while (k < lim) {
             char c1 = v1[k];
             char c2 = v2[k];
+            //如果某个char不相等，则返回两个char的差值。
+            //差值为负数表示这个string排在另一个string的Unicode字典序列之前
+            //差值为正数表示这个string排在另一个string的Unicode字典序列之后
             if (c1 != c2) {
                 return c1 - c2;
             }
             k++;
         }
+        //如果较小长度lim范围内，所有char都相等，则返回长度差值
+        //差值为负数表示这个string排在另一个string的Unicode字典序列之前
+        //差值为正数表示这个string排在另一个string的Unicode字典序列之后
         return len1 - len2;
     }
 
     /**
+     * ok>>
      * A Comparator that orders {@code String} objects as by
      * {@code compareToIgnoreCase}. This comparator is serializable.
      * <p>
@@ -1249,6 +1266,9 @@ public final class String
         // use serialVersionUID from JDK 1.2.2 for interoperability
         private static final long serialVersionUID = 8575799808933029326L;
 
+        //类似compareTo方法，不同的是逐个比较char时，
+        // 在首次比较、转大写比较和转小写比较都不等时，才判断为两个char不等
+        //其它逻辑同普通的compareTo方法
         public int compare(String s1, String s2) {
             int n1 = s1.length();
             int n2 = s2.length();
@@ -1277,6 +1297,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Compares two strings lexicographically, ignoring case
      * differences. This method returns an integer whose sign is that of
      * calling {@code compareTo} with normalized versions of the strings
@@ -1301,6 +1322,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Tests if two string regions are equal.
      * <p>
      * A substring of this {@code String} object is compared to a substring
@@ -1353,6 +1375,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Tests if two string regions are equal.
      * <p>
      * A substring of this {@code String} object is compared to a substring
@@ -1402,6 +1425,7 @@ public final class String
      *          or case insensitive depends on the {@code ignoreCase}
      *          argument.
      */
+    //string子串比较
     public boolean regionMatches(boolean ignoreCase, int toffset,
             String other, int ooffset, int len) {
         char ta[] = value;
@@ -1409,11 +1433,16 @@ public final class String
         char pa[] = other.value;
         int po = ooffset;
         // Note: toffset, ooffset, or len might be near -1>>>1.
+        //越界，返回false
         if ((ooffset < 0) || (toffset < 0)
                 || (toffset > (long)value.length - len)
                 || (ooffset > (long)other.value.length - len)) {
             return false;
         }
+        //1、逐个比较char全部相等正好循环结束，返回true
+        //2、逐个比较char，遇见两个char不等，如果ignoreCase==false，直接返回false
+        //3、逐个比较char，遇见两个char不等，如果ignoreCase==true，把char都转换成大写字母比较，
+        // 如果此时相等则继续比较，不等则都转成小写比较，都不等才返回false
         while (len-- > 0) {
             char c1 = ta[to++];
             char c2 = pa[po++];
@@ -1444,6 +1473,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Tests if the substring of this string beginning at the
      * specified index starts with the specified prefix.
      *
@@ -1467,9 +1497,11 @@ public final class String
         int po = 0;
         int pc = prefix.value.length;
         // Note: toffset might be near -1>>>1.
+        //越界检查
         if ((toffset < 0) || (toffset > value.length - pc)) {
             return false;
         }
+        //遍历prefix长度，char不等则返回false，全部相等返回true
         while (--pc >= 0) {
             if (ta[to++] != pa[po++]) {
                 return false;
@@ -1479,6 +1511,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Tests if this string starts with the specified prefix.
      *
      * @param   prefix   the prefix.
@@ -1496,6 +1529,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Tests if this string ends with the specified suffix.
      *
      * @param   suffix   the suffix.
@@ -1511,6 +1545,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns a hash code for this string. The hash code for a
      * {@code String} object is computed as
      * <blockquote><pre>
@@ -1537,6 +1572,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns the index within this string of the first occurrence of
      * the specified character. If a character with value
      * {@code ch} occurs in the character sequence represented by
@@ -1560,11 +1596,13 @@ public final class String
      *          character sequence represented by this object, or
      *          {@code -1} if the character does not occur.
      */
+    //注意这个ch是一个Unicode的code point
     public int indexOf(int ch) {
         return indexOf(ch, 0);
     }
 
     /**
+     * ok>>
      * Returns the index within this string of the first occurrence of the
      * specified character, starting the search at the specified index.
      * <p>
@@ -1605,6 +1643,7 @@ public final class String
      */
     public int indexOf(int ch, int fromIndex) {
         final int max = value.length;
+        //越界检查
         if (fromIndex < 0) {
             fromIndex = 0;
         } else if (fromIndex >= max) {
@@ -1612,6 +1651,7 @@ public final class String
             return -1;
         }
 
+        //如果是Unicode的基本平面 in the range from 0 to 0xFFFF (inclusive)，逐个char搜索
         if (ch < Character.MIN_SUPPLEMENTARY_CODE_POINT) {
             // handle most cases here (ch is a BMP code point or a
             // negative value (invalid code point))
@@ -1623,11 +1663,13 @@ public final class String
             }
             return -1;
         } else {
+            //其它补充平面的unicode，提交indexOfSupplementary处理
             return indexOfSupplementary(ch, fromIndex);
         }
     }
 
     /**
+     * ok>>
      * Handles (rare) calls of indexOf with a supplementary character.
      */
     private int indexOfSupplementary(int ch, int fromIndex) {
@@ -1637,6 +1679,7 @@ public final class String
             final char lo = Character.lowSurrogate(ch);
             final int max = value.length - 1;
             for (int i = fromIndex; i < max; i++) {
+                //如果i位置是高位代理且i+1位置是低位代理，则返回i
                 if (value[i] == hi && value[i + 1] == lo) {
                     return i;
                 }
@@ -1646,6 +1689,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns the index within this string of the last occurrence of
      * the specified character. For values of {@code ch} in the
      * range from 0 to 0xFFFF (inclusive), the index (in Unicode code
@@ -1711,7 +1755,9 @@ public final class String
             // handle most cases here (ch is a BMP code point or a
             // negative value (invalid code point))
             final char[] value = this.value;
+            //取最后一个index和fromIndex的较小者，如果fromIndex大于最大index则取最大index
             int i = Math.min(fromIndex, value.length - 1);
+            //注意这里是倒序逐个遍历
             for (; i >= 0; i--) {
                 if (value[i] == ch) {
                     return i;
@@ -1724,8 +1770,10 @@ public final class String
     }
 
     /**
+     * ok>>
      * Handles (rare) calls of lastIndexOf with a supplementary character.
      */
+    //与indexOfSupplementary类似逻辑
     private int lastIndexOfSupplementary(int ch, int fromIndex) {
         if (Character.isValidCodePoint(ch)) {
             final char[] value = this.value;
@@ -1742,6 +1790,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns the index within this string of the first occurrence of the
      * specified substring.
      *
@@ -1760,6 +1809,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns the index within this string of the first occurrence of the
      * specified substring, starting at the specified index.
      *
@@ -1781,6 +1831,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Code shared by String and AbstractStringBuilder to do searches. The
      * source is the character array being searched, and the target
      * is the string being searched for.
@@ -1791,6 +1842,7 @@ public final class String
      * @param   target       the characters being searched for.
      * @param   fromIndex    the index to begin searching from.
      */
+    //被AbstractStringBuilder当作工具方法调用,所以设置成static
     static int indexOf(char[] source, int sourceOffset, int sourceCount,
             String target, int fromIndex) {
         return indexOf(source, sourceOffset, sourceCount,
@@ -1799,6 +1851,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Code shared by String and StringBuffer to do searches. The
      * source is the character array being searched, and the target
      * is the string being searched for.
@@ -1811,12 +1864,15 @@ public final class String
      * @param   targetCount  count of the target string.
      * @param   fromIndex    the index to begin searching from.
      */
+    //被StringBuilder当作工具方法调用,所以设置成static
     static int indexOf(char[] source, int sourceOffset, int sourceCount,
             char[] target, int targetOffset, int targetCount,
             int fromIndex) {
+        //开始点大于源字符串长度
         if (fromIndex >= sourceCount) {
             return (targetCount == 0 ? sourceCount : -1);
         }
+        //搜索起点小于0，默认从0开始
         if (fromIndex < 0) {
             fromIndex = 0;
         }
@@ -1824,15 +1880,28 @@ public final class String
             return fromIndex;
         }
 
+        //目标字符串中第一个需要匹配的char，后面的遍历中，先找有没有这个char存在，找到后才开始逐个比对
         char first = target[targetOffset];
+        //结束点index计算，在sourceCount中减去目标字符串个数
         int max = sourceOffset + (sourceCount - targetCount);
 
+        //搜索算法：
+        //1、i指针指向源字符串的开始点fromIndex，在max范围内递增寻找first char
+        //2、如果i指针遍历完成，没有找到first char，则返回-1表示未找到
+        //3、如果找到first char且i在max范围内，开始后续char比对，比对方法如下：
+            //a、用j指针指向源字符串i指针的后一项
+            //b、用k指针指向目标字符串的first char后一项
+            //c、用end确定查找范围（即目标字符串的count）
+            //d、在end范围内，同时递增j指针和k指针，逐个比对每一个char，全等则返回index。
+            // 出现不等则返回外层循环，再移动i指针去寻找下一个等于first的char，即继续1步骤的后续动作
         for (int i = sourceOffset + fromIndex; i <= max; i++) {
             /* Look for first character. */
             if (source[i] != first) {
+                //没有找到，i循环递增找
                 while (++i <= max && source[i] != first);
             }
 
+            //如果i>max说明没有找到首个char，返回-1
             /* Found first character, now look at the rest of v2 */
             if (i <= max) {
                 int j = i + 1;
@@ -1850,6 +1919,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns the index within this string of the last occurrence of the
      * specified substring.  The last occurrence of the empty string ""
      * is considered to occur at the index value {@code this.length()}.
@@ -1864,11 +1934,13 @@ public final class String
      * @return  the index of the last occurrence of the specified substring,
      *          or {@code -1} if there is no such occurrence.
      */
+    //如果传入的字符串是空串，则返回this.length()
     public int lastIndexOf(String str) {
         return lastIndexOf(str, value.length);
     }
 
     /**
+     * ok>>
      * Returns the index within this string of the last occurrence of the
      * specified substring, searching backward starting at the specified index.
      *
@@ -1890,6 +1962,7 @@ public final class String
     }
 
     /**
+     * ok
      * Code shared by String and AbstractStringBuilder to do searches. The
      * source is the character array being searched, and the target
      * is the string being searched for.
@@ -1967,6 +2040,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns a string that is a substring of this string. The
      * substring begins with the character at the specified index and
      * extends to the end of this string. <p>
@@ -1983,6 +2057,7 @@ public final class String
      *             {@code beginIndex} is negative or larger than the
      *             length of this {@code String} object.
      */
+    //创建一个新的String对象返回，所以对新字符串的操作将不会影响源String
     public String substring(int beginIndex) {
         if (beginIndex < 0) {
             throw new StringIndexOutOfBoundsException(beginIndex);
@@ -1995,6 +2070,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns a string that is a substring of this string. The
      * substring begins at the specified {@code beginIndex} and
      * extends to the character at index {@code endIndex - 1}.
@@ -2032,6 +2108,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns a character sequence that is a subsequence of this sequence.
      *
      * <p> An invocation of this method of the form
@@ -2060,11 +2137,13 @@ public final class String
      * @since 1.4
      * @spec JSR-51
      */
+    //对CharSequence接口方法的实现
     public CharSequence subSequence(int beginIndex, int endIndex) {
         return this.substring(beginIndex, endIndex);
     }
 
     /**
+     * ok>>
      * Concatenates the specified string to the end of this string.
      * <p>
      * If the length of the argument string is {@code 0}, then this
@@ -2090,12 +2169,16 @@ public final class String
             return this;
         }
         int len = value.length;
+        //先把原有的char数组拷贝到len+str.len的新数组
         char buf[] = Arrays.copyOf(value, len + otherLen);
+        //再把str的char数组，从len开始全部拷贝到新数组buf中
         str.getChars(buf, len);
+        //用buf创建一个新String返回
         return new String(buf, true);
     }
 
     /**
+     * ok>>
      * Returns a string resulting from replacing all occurrences of
      * {@code oldChar} in this string with {@code newChar}.
      * <p>
@@ -2128,18 +2211,30 @@ public final class String
         if (oldChar != newChar) {
             int len = value.length;
             int i = -1;
+            //此处getfield 操作指的是获取指定类的实例域，并将其值压入栈顶
+            //通过javap -c ***.class查看java类的字节码，可以看到每次访问value等实例变量，虚拟机都会执行一次getfield操作，如果一个方法中多次需要访问实例变量，
+            // 或者在循环中访问，就会额外调用非常多次的getfield操作，就大大降低了执行性能
+            //当使用char[] val = value，用局部变量引用代替全局变量后，虚拟机只执行一次getfield，减少了很多不必要的操作
             char[] val = value; /* avoid getfield opcode */
 
+            //整个替换流程分两部分：
+            //第一部分：遍历寻找oldChar，如果没有命中不做任何操作，返回原字符串
+            //第二部分：如果命中一个oldChar，停止第一个循环，进入拷贝阶段
             while (++i < len) {
                 if (val[i] == oldChar) {
                     break;
                 }
             }
+            //延迟创建buf[]，buf[]不是在一开始就创建，而是在命中oldChar后再创建，
+            //这样在没有oldChar的情况下避免了内存浪费。
+            //分段赋值：
             if (i < len) {
                 char buf[] = new char[len];
+                //先拷贝第一个oldChar位置前的所有char
                 for (int j = 0; j < i; j++) {
                     buf[j] = val[j];
                 }
+                //再替换或拷贝第一个oldChar后的所有char
                 while (i < len) {
                     char c = val[i];
                     buf[i] = (c == oldChar) ? newChar : c;
@@ -2183,6 +2278,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns true if and only if this string contains the specified
      * sequence of char values.
      *
@@ -2195,6 +2291,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Replaces the first substring of this string that matches the given <a
      * href="../util/regex/Pattern.html#sum">regular expression</a> with the
      * given replacement.
@@ -2235,11 +2332,13 @@ public final class String
      * @since 1.4
      * @spec JSR-51
      */
+    //使用regex正则表达式去匹配该字符串，把匹配到的第一个子串用replacement替换
     public String replaceFirst(String regex, String replacement) {
         return Pattern.compile(regex).matcher(this).replaceFirst(replacement);
     }
 
     /**
+     * ok>>
      * Replaces each substring of this string that matches the given <a
      * href="../util/regex/Pattern.html#sum">regular expression</a> with the
      * given replacement.
@@ -2296,6 +2395,8 @@ public final class String
      * @return  The resulting string
      * @since 1.5
      */
+    //使用replacement字符串替换目标字符串中所有内容为target的子串
+    //使用Pattern.LITERAL模式和quoteReplacement，所有元字符和转义字符（如\,$等）都被当成普通字符，没有其他意义
     public String replace(CharSequence target, CharSequence replacement) {
         return Pattern.compile(target.toString(), Pattern.LITERAL).matcher(
                 this).replaceAll(Matcher.quoteReplacement(replacement.toString()));
@@ -2322,11 +2423,13 @@ public final class String
      * array.  If the limit <i>n</i> is greater than zero then the pattern
      * will be applied at most <i>n</i>&nbsp;-&nbsp;1 times, the array's
      * length will be no greater than <i>n</i>, and the array's last entry
-     * will contain all input beyond the last matched delimiter.  If <i>n</i>
+     * will contain all input beyond the last matched delimiter.
+     * （array的最后一项包含最后一个匹配符的后面的所有内容） If <i>n</i>
      * is non-positive then the pattern will be applied as many times as
-     * possible and the array can have any length.  If <i>n</i> is zero then
+     * possible(尽可能多次) and the array can have any length.  If <i>n</i> is zero then
      * the pattern will be applied as many times as possible, the array can
-     * have any length, and trailing empty strings will be discarded.
+     * have any length, and trailing empty strings will be discarded.(limit == 0尾部空串会被丢弃)
+     *
      *
      * <p> The string {@code "boo:and:foo"}, for example, yields the
      * following results with these parameters:
@@ -2442,6 +2545,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Splits this string around matches of the given <a
      * href="../util/regex/Pattern.html#sum">regular expression</a>.
      *
@@ -2484,6 +2588,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns a new String composed of copies of the
      * {@code CharSequence elements} joined together with a copy of
      * the specified {@code delimiter}.
@@ -2520,6 +2625,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns a new {@code String} composed of copies of the
      * {@code CharSequence elements} joined together with a copy of the
      * specified {@code delimiter}.
@@ -2556,6 +2662,7 @@ public final class String
      * @see    java.util.StringJoiner
      * @since 1.8
      */
+    //类似于split的逆向操作
     public static String join(CharSequence delimiter,
             Iterable<? extends CharSequence> elements) {
         Objects.requireNonNull(delimiter);

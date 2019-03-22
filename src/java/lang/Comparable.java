@@ -93,6 +93,8 @@ import java.util.*;
  * @see java.util.Comparator
  * @since 1.2
  */
+//对现实世界的比较活动进行抽象。为实现该接口的类赋予可比较能力
+//比较操作是很多其它操作的基础，如查找、排序等
 public interface Comparable<T> {
     /**
      * Compares this object with the specified object for order.  Returns a

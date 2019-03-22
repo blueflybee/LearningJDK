@@ -4666,6 +4666,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
     public static boolean isValidCodePoint(int codePoint) {
         // Optimized form of:
         //     codePoint >= MIN_CODE_POINT && codePoint <= MAX_CODE_POINT
+        //右移后的codePoint不存在小于 MIN_CODE_POINT的情况，所以只需要判断codePoint <= MAX_CODE_POINT
         int plane = codePoint >>> 16;
         return plane < ((MAX_CODE_POINT + 1) >>> 16);
     }
