@@ -5099,6 +5099,15 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * 3、第2步所得结果加上MIN_HIGH_SURROGATE;
      * utf-16编码方式见 https://blog.csdn.net/wusj3/article/details/88632685。
      */
+    /**
+     * AC00-D7AF：朝鲜文音节 (Hangul Syllables)
+     * D800-DBFF：High-half zone of UTF-16
+     * DC00-DFFF：Low-half zone of UTF-16
+     * 可以看出，D7B0-D7FF是没有表示UTF-16的编码的，JAVA将这每表示的部分归到了High-Surrogate中
+     *
+     * MIN_HIGH_SURROGATE = '\uD800'
+     * MIN_SUPPLEMENTARY_CODE_POINT = 0x010000
+     */
     public static char highSurrogate(int codePoint) {
         return (char) ((codePoint >>> 10)
             + (MIN_HIGH_SURROGATE - (MIN_SUPPLEMENTARY_CODE_POINT >>> 10)));
@@ -5131,6 +5140,18 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * >>原理同 {@link #highSurrogate}
      */
+
+    /**
+     * java char字符都是用UTF-16编码的，而一个char是两个字节，最多表示2的16次方=65536种编码
+     * 而UTF-16的字符远远超过65536，为了解决这个问题，从char这65536个编号里，拿出2048个，规定它们
+     * 是surrogate
+     * 编号从U+D800至U+DBFF的规定为「High Surrogates」，共1024个。
+     * 编号为 U+DC00至U+DFFF的规定为「Low Surrogates」，也是1024个，
+     * High+Low组合在一起表示超过65536的UTF-16编码，又可以表示1048576种编码
+     *
+     * MIN_LOW_SURROGATE  = '\uDC00'
+     *
+     * */
     public static char lowSurrogate(int codePoint) {
         return (char) ((codePoint & 0x3ff) + MIN_LOW_SURROGATE);
     }
@@ -6358,6 +6379,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
     }
 
     /**
+     * ok>>
      * Converts the character (Unicode code point) argument to
      * lowercase using case mapping information from the UnicodeData
      * file.

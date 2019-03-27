@@ -57,11 +57,14 @@ final class ConditionalSpecialCasing {
     final static int COMBINING_CLASS_ABOVE = 230;
 
     // Special case mapping entries
+    //特殊情况映射项集合
     static Entry[] entry = {
         //# ================================================================================
         //# Conditional mappings
         //# ================================================================================
+        //sigma:Σς
         new Entry(0x03A3, new char[]{0x03C2}, new char[]{0x03A3}, null, FINAL_CASED), // # GREEK CAPITAL LETTER SIGMA
+        //İi̇	̇̇
         new Entry(0x0130, new char[]{0x0069, 0x0307}, new char[]{0x0130}, null, 0), // # LATIN CAPITAL LETTER I WITH DOT ABOVE
 
         //# ================================================================================
@@ -71,9 +74,11 @@ final class ConditionalSpecialCasing {
         new Entry(0x0307, new char[]{0x0307}, new char[]{}, "lt",  AFTER_SOFT_DOTTED), // # COMBINING DOT ABOVE
         new Entry(0x0049, new char[]{0x0069, 0x0307}, new char[]{0x0049}, "lt", MORE_ABOVE), // # LATIN CAPITAL LETTER I
         new Entry(0x004A, new char[]{0x006A, 0x0307}, new char[]{0x004A}, "lt", MORE_ABOVE), // # LATIN CAPITAL LETTER J
+        //Į	į
         new Entry(0x012E, new char[]{0x012F, 0x0307}, new char[]{0x012E}, "lt", MORE_ABOVE), // # LATIN CAPITAL LETTER I WITH OGONEK
         new Entry(0x00CC, new char[]{0x0069, 0x0307, 0x0300}, new char[]{0x00CC}, "lt", 0), // # LATIN CAPITAL LETTER I WITH GRAVE
         new Entry(0x00CD, new char[]{0x0069, 0x0307, 0x0301}, new char[]{0x00CD}, "lt", 0), // # LATIN CAPITAL LETTER I WITH ACUTE
+        //Ĩ
         new Entry(0x0128, new char[]{0x0069, 0x0307, 0x0303}, new char[]{0x0128}, "lt", 0), // # LATIN CAPITAL LETTER I WITH TILDE
 
         //# ================================================================================
@@ -89,6 +94,7 @@ final class ConditionalSpecialCasing {
     };
 
     // A hash table that contains the above entries
+    //code point:entry set
     static Hashtable<Integer, HashSet<Entry>> entryTable = new Hashtable<>();
     static {
         // create hashtable from the entry
@@ -104,6 +110,7 @@ final class ConditionalSpecialCasing {
         }
     }
 
+    //ok>>
     static int toLowerCaseEx(String src, int index, Locale locale) {
         char[] result = lookUpTable(src, index, locale, true);
 
@@ -147,7 +154,10 @@ final class ConditionalSpecialCasing {
         }
     }
 
+    //ok>>
+    //从映射表中找到对应的大写/小写的code point
     private static char[] lookUpTable(String src, int index, Locale locale, boolean bLowerCasing) {
+        //从特殊字符映射表中获取详细项
         HashSet<Entry> set = entryTable.get(new Integer(src.codePointAt(index)));
         char[] ret = null;
 

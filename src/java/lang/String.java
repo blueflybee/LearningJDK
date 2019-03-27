@@ -2735,54 +2735,68 @@ public final class String
         final int len = value.length;
 
         /* Now check if there are any characters that need to be changed. */
+        //扫描检查是否存在大写字母
         scan: {
             for (firstUpper = 0 ; firstUpper < len; ) {
                 char c = value[firstUpper];
+                //1、如果c是补充字符集，一个字符需要两个char表示
                 if ((c >= Character.MIN_HIGH_SURROGATE)
                         && (c <= Character.MAX_HIGH_SURROGATE)) {
                     int supplChar = codePointAt(firstUpper);
+                    //一旦发现大写字母，马上跳出scan外
                     if (supplChar != Character.toLowerCase(supplChar)) {
                         break scan;
                     }
                     firstUpper += Character.charCount(supplChar);
-                } else {
+                }
+                //2、如果是bmp，一个字符可以用一个char表示
+                else {
                     if (c != Character.toLowerCase(c)) {
                         break scan;
                     }
                     firstUpper++;
                 }
             }
+            //如果扫描整个value[]，没有发现大写字母，则返回原字符串
             return this;
         }
 
-        char[] result = new char[len];
+        char[] result = new char[len];//保存结果
         int resultOffset = 0;  /* result may grow, so i+resultOffset
                                 * is the write location in result */
 
         /* Just copy the first few lowerCase characters. */
+        //1、第一段处理，根据上面scan结果，firstUpper之前的全是小写，可以一次性拷贝到result中
         System.arraycopy(value, 0, result, 0, firstUpper);
 
         String lang = locale.getLanguage();
+        //语言是土耳其、阿塞里或立陶宛的一种
         boolean localeDependent =
                 (lang == "tr" || lang == "az" || lang == "lt");
         char[] lowerCharArray;
-        int lowerChar;
-        int srcChar;
-        int srcCount;
+        int lowerChar;//转换后的小写字符code point
+        int srcChar;//源code point
+        int srcCount;//源char数量（是bmp则为1,是补充部分则为2）
+        //处理firstUpper后的第二段
         for (int i = firstUpper; i < len; i += srcCount) {
             srcChar = (int)value[i];
+            //如果是补充字符，则计算code point和char count
             if ((char)srcChar >= Character.MIN_HIGH_SURROGATE
                     && (char)srcChar <= Character.MAX_HIGH_SURROGATE) {
                 srcChar = codePointAt(i);
                 srcCount = Character.charCount(srcChar);
+                //如果是基本字符，则srcCount为1
             } else {
                 srcCount = 1;
             }
+            //语言是土耳其、阿塞里或立陶宛的一种或者字符是"Σ"或"İ"，使用特殊情况工具类来转化成小写
             if (localeDependent ||
-                srcChar == '\u03A3' || // GREEK CAPITAL LETTER SIGMA
-                srcChar == '\u0130') { // LATIN CAPITAL LETTER I WITH DOT ABOVE
+                srcChar == '\u03A3' || // GREEK CAPITAL LETTER SIGMA:"Σ"
+                srcChar == '\u0130') { // LATIN CAPITAL LETTER I WITH DOT ABOVE:	"İ"
                 lowerChar = ConditionalSpecialCasing.toLowerCaseEx(this, i, locale);
-            } else {
+            }
+            //其他情况用Character统一转换成小写
+            else {
                 lowerChar = Character.toLowerCase(srcChar);
             }
             if ((lowerChar == Character.ERROR)
@@ -3310,6 +3324,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns a canonical representation for the string object.
      * <p>
      * A pool of strings, initially empty, is maintained privately by the
@@ -3332,5 +3347,17 @@ public final class String
      * @return  a string that has the same contents as this string, but is
      *          guaranteed to be from a pool of unique strings.
      */
+//    String s1 = "HelloWorld";//放入常量池
+//    String s2 = new String("HelloWorld");//放入堆
+//    String s3 = "Hello";//放入常量池
+//    String s4 = "World";//放入常量池
+//    String s5 = "Hello" + "World";//拼接后，在常量池寻找HelloWorld返回
+//    String s6 = s3 + s4;//放入堆
+//
+//    System.out.println(s1 == s2);//false
+//    System.out.println(s1 == s5);//true
+//    System.out.println(s1 == s6);//false
+//    System.out.println(s1 == s6.intern());//true
+//    System.out.println(s2 == s2.intern());//false
     public native String intern();
 }

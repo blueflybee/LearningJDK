@@ -28,7 +28,8 @@ package java.lang;
 
 /** The CharacterData class encapsulates the large tables found in
     Java.lang.Character. */
-
+//处理基本拉丁文和拉丁文补充-1部分（0x0000~0x00ff）
+//
 class CharacterDataLatin1 extends CharacterData {
 
     /* The character properties are currently encoded into 32 bits in the following manner:
@@ -248,6 +249,7 @@ class CharacterDataLatin1 extends CharacterData {
         return upperMap;
     }
 
+    //单例模式
     static final CharacterDataLatin1 instance = new CharacterDataLatin1();
     private CharacterDataLatin1() {};
 
