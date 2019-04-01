@@ -3164,6 +3164,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns the string representation of the {@code Object} argument.
      *
      * @param   obj   an {@code Object}.
@@ -3177,6 +3178,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns the string representation of the {@code char} array
      * argument. The contents of the character array are copied; subsequent
      * modification of the character array does not affect the returned
@@ -3191,6 +3193,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns the string representation of a specific subarray of the
      * {@code char} array argument.
      * <p>
@@ -3215,6 +3218,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Equivalent to {@link #valueOf(char[], int, int)}.
      *
      * @param   data     the character array.
@@ -3232,6 +3236,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Equivalent to {@link #valueOf(char[])}.
      *
      * @param   data   the character array.
@@ -3243,6 +3248,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns the string representation of the {@code boolean} argument.
      *
      * @param   b   a {@code boolean}.
@@ -3255,6 +3261,7 @@ public final class String
     }
 
     /**
+     * ok>>
      * Returns the string representation of the {@code char}
      * argument.
      *

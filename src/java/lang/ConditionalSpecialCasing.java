@@ -115,12 +115,16 @@ final class ConditionalSpecialCasing {
         char[] result = lookUpTable(src, index, locale, true);
 
         if (result != null) {
+            //只有一个小写项
             if (result.length == 1) {
                 return result[0];
             } else {
+                //有多个小写项
                 return Character.ERROR;
             }
-        } else {
+        }
+        //特殊映射表中没有找到，交给Character转换
+        else {
             // default to Character class' one
             return Character.toLowerCase(src.codePointAt(index));
         }
