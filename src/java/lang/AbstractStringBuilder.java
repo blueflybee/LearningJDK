@@ -55,7 +55,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      * ok>>
      * The count is the number of characters used.
      */
-    //字符个数?
+    //字符个数
     int count;
 
     /**
@@ -78,12 +78,24 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      * @return  the length of the sequence of characters currently
      *          represented by this object
      */
+    //count代表已用的char个数
+    //而且value.length（capacity）char总个数
+    //代码示例：
+    //StringBuilder sb = new StringBuilder("abcd𠮷");
+    //    System.out.println("sb = " + sb);
+    //
+    //    System.out.println("sb.capacity() = " + sb.capacity());
+    //    System.out.println("sb.length() = " + sb.length());
+    //sb = abcd𠮷，这里abcd属于基本面，都只需要一个char就可以存储，而𠮷是0x20BB7，代码值超过基本面，需要两个char来表示，所以count==4+2
+    //sb.capacity() = 22 //当前容量，value[]数组的总个数
+    //sb.length() = 6 //已经使用的char个数count==4+2
     @Override
     public int length() {
         return count;
     }
 
     /**
+     * ok>>
      * Returns the current capacity. The capacity is the amount of storage
      * available for newly inserted characters, beyond which an allocation
      * will occur.
@@ -181,12 +193,19 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Attempts to reduce storage used for the character sequence.
      * If the buffer is larger than necessary to hold its current sequence of
      * characters, then it may be resized to become more space efficient.
      * Calling this method may, but is not required to, affect the value
      * returned by a subsequent call to the {@link #capacity()} method.
      */
+    //如果Capacity>count，截取到count长度，提升内存利用率
+    //sb = abcd
+    //before trimToSize sb.capacity() = 20
+    //before trimToSize sb.length() = 4
+    //after trimToSize sb.capacity() = 4
+    //after trimToSize sb.length() = 4
     public void trimToSize() {
         if (count < value.length) {
             value = Arrays.copyOf(value, count);

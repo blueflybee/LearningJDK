@@ -44,6 +44,8 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 /**
+ * 数组工具类，很多数组的操作，可以使用该方法完成。
+ * 需要仔细透彻理解每个方法的意图和机制
  * This class contains various methods for manipulating arrays (such as
  * sorting and searching). This class also contains a static factory
  * that allows arrays to be viewed as lists.
@@ -105,8 +107,11 @@ public class Arrays {
     }
 
     /**
+     * ok>>
      * Checks that {@code fromIndex} and {@code toIndex} are in
      * the range and throws an exception if they aren't.
+     *
+     * 传入参数合法性和范围检测
      */
     private static void rangeCheck(int arrayLength, int fromIndex, int toIndex) {
         if (fromIndex > toIndex) {
@@ -2953,6 +2958,7 @@ public class Arrays {
     }
 
     /**
+     * ok>>
      * Assigns the specified char value to each element of the specified
      * range of the specified array of chars.  The range to be filled
      * extends from index <tt>fromIndex</tt>, inclusive, to index
@@ -2969,6 +2975,8 @@ public class Arrays {
      * @throws ArrayIndexOutOfBoundsException if <tt>fromIndex &lt; 0</tt> or
      *         <tt>toIndex &gt; a.length</tt>
      */
+    //范围填充
+    //在[fromIndex, toIndex)范围内用val值初始化每个数组的值
     public static void fill(char[] a, int fromIndex, int toIndex, char val) {
         rangeCheck(a.length, fromIndex, toIndex);
         for (int i = fromIndex; i < toIndex; i++)
@@ -3312,6 +3320,7 @@ public class Arrays {
     }
 
     /**
+     * ok>>
      * Copies the specified array, truncating or padding with null characters (if necessary)
      * so the copy has the specified length.  For all indices that are valid
      * in both the original array and the copy, the two arrays will contain
@@ -3328,6 +3337,7 @@ public class Arrays {
      * @throws NullPointerException if <tt>original</tt> is null
      * @since 1.6
      */
+    //从original截取或者扩展成（通过copy）newLength长度的数组，如果是扩展，多余长度元素都为'\\u000'
     public static char[] copyOf(char[] original, int newLength) {
         char[] copy = new char[newLength];
         System.arraycopy(original, 0, copy, 0,
