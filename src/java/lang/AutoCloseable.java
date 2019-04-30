@@ -26,6 +26,7 @@
 package java.lang;
 
 /**
+ * ok>>
  * An object that may hold resources (such as file or socket handles)
  * until it is closed. The {@link #close()} method of an {@code AutoCloseable}
  * object is called automatically when exiting a {@code
@@ -50,6 +51,7 @@ package java.lang;
  */
 public interface AutoCloseable {
     /**
+     * ok>>
      * Closes this resource, relinquishing any underlying resources.
      * This method is invoked automatically on objects managed by the
      * {@code try}-with-resources statement.
@@ -94,5 +96,7 @@ public interface AutoCloseable {
      *
      * @throws Exception if this resource cannot be closed
      */
+    //idempotent：幂等，在编程中一个幂等操作的特点是其任意多次执行所产生的影响均与一次执行的影响相同
+    //多次调用会造成可见的副作用
     void close() throws Exception;
 }

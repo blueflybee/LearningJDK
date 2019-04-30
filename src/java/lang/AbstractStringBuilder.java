@@ -44,6 +44,7 @@ import java.util.Arrays;
  * @author      Ulf Zibis
  * @since       1.5
  */
+//抽象的可变字符序列，表示一个可以修改的string
 abstract class AbstractStringBuilder implements Appendable, CharSequence {
     /**
      * The value is used for character storage.
@@ -51,8 +52,10 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     char[] value;
 
     /**
+     * ok>>
      * The count is the number of characters used.
      */
+    //字符个数?
     int count;
 
     /**
@@ -69,6 +72,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Returns the length (character count).
      *
      * @return  the length of the sequence of characters currently
@@ -132,9 +136,11 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      * Attempts to allocate larger arrays may result in
      * OutOfMemoryError: Requested array size exceeds VM limit
      */
+    //虚拟机最大可分配的数组大小，预留8作为数组对象本身的头信息
     private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 
     /**
+     * ok>>
      * Returns a capacity at least as large as the given minimum capacity.
      * Returns the current capacity increased by the same amount + 2 if
      * that suffices.
@@ -145,21 +151,31 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      * @throws OutOfMemoryError if minCapacity is less than zero or
      *         greater than Integer.MAX_VALUE
      */
+    //根据传入的期望值对内部数组进行扩容
     private int newCapacity(int minCapacity) {
         // overflow-conscious code
+        //对原数组加倍再+2作为默认新容量
         int newCapacity = (value.length << 1) + 2;
+        //默认新容量与期望值比较，取较大者
         if (newCapacity - minCapacity < 0) {
             newCapacity = minCapacity;
         }
+        //如果新容量newCapacity不合法（小于0或大于最大可分配值），返回最大可分配量
+        //否则返回新容量值
         return (newCapacity <= 0 || MAX_ARRAY_SIZE - newCapacity < 0)
             ? hugeCapacity(minCapacity)
             : newCapacity;
     }
 
+    //ok>>
+    //计算返回最大可分配容量值
     private int hugeCapacity(int minCapacity) {
+        //期望容量minCapacity大于Integer.MAX_VALUE，表示超过jvm可分配最大内存，抛出oom
         if (Integer.MAX_VALUE - minCapacity < 0) { // overflow
             throw new OutOfMemoryError();
         }
+        //MAX_ARRAY_SIZE < minCapacity <= Integer.MAX_VALUE，返回minCapacity
+        //minCapacity <= MAX_ARRAY_SIZE，返回MAX_ARRAY_SIZE
         return (minCapacity > MAX_ARRAY_SIZE)
             ? minCapacity : MAX_ARRAY_SIZE;
     }
