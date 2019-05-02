@@ -5299,6 +5299,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
         return codePointCountImpl(a, offset, count);
     }
 
+    //ok>>
     static int codePointCountImpl(char[] a, int offset, int count) {
         int endIndex = offset + count;
         //n记录最终返回的codePoint数目，初始为endIndex - beginIndex，即设定的区间内的char数量

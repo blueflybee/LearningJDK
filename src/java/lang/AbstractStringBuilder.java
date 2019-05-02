@@ -107,6 +107,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Ensures that the capacity is at least equal to the specified minimum.
      * If the current capacity is less than the argument, then a new internal
      * array is allocated with greater capacity. The new capacity is the
@@ -128,6 +129,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * For positive values of {@code minimumCapacity}, this method
      * behaves like {@code ensureCapacity}, however it is never
      * synchronized.
@@ -213,6 +215,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Sets the length of the character sequence.
      * The sequence is changed to a new character sequence
      * whose length is specified by the argument. For every nonnegative
@@ -250,6 +253,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Returns the {@code char} value in this sequence at the specified index.
      * The first {@code char} value is at index {@code 0}, the next at index
      * {@code 1}, and so on, as in array indexing.
@@ -274,6 +278,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Returns the character (Unicode code point) at the specified
      * index. The index refers to {@code char} values
      * (Unicode code units) and ranges from {@code 0} to
@@ -302,6 +307,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Returns the character (Unicode code point) before the specified
      * index. The index refers to {@code char} values
      * (Unicode code units) and ranges from {@code 1} to {@link
@@ -331,6 +337,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Returns the number of Unicode code points in the specified text
      * range of this sequence. The text range begins at the specified
      * {@code beginIndex} and extends to the {@code char} at
