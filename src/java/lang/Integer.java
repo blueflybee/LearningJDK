@@ -422,6 +422,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Places characters representing the integer i into the
      * character array buf. The characters are placed into
      * the buffer backwards starting with the least significant
@@ -441,6 +442,8 @@ public final class Integer extends Number implements Comparable<Integer> {
         }
 
         // Generate two digits per iteration
+        //对于位数多的大数字，一次迭代转化两个数字可以减少迭代次数
+        //提升效率
         while (i >= 65536) {
             q = i / 100;
         // really: r = i - (q * 100);
@@ -460,11 +463,13 @@ public final class Integer extends Number implements Comparable<Integer> {
             //q = i * 0.1000003814697
             //位移操作效率比较高
             q = (i * 52429) >>> (16+3);
+            //r是每个位上的数字值
             r = i - ((q << 3) + (q << 1));  // r = i-(q*10) ...
             buf [--charPos] = digits [r];
             i = q;
             if (i == 0) break;
         }
+        //如果是负数，则再赋值一位符号
         if (sign != 0) {
             buf [--charPos] = sign;
         }

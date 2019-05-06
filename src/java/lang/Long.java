@@ -418,6 +418,7 @@ public final class Long extends Number implements Comparable<Long> {
     }
 
     /**
+     * ok>>
      * Places characters representing the integer i into the
      * character array buf. The characters are placed into
      * the buffer backwards starting with the least significant
@@ -474,6 +475,8 @@ public final class Long extends Number implements Comparable<Long> {
     }
 
     // Requires positive x
+    //long的范围是-9223372036854775808~9223372036854775807
+    //最多为19位，所以该方法最多返回19
     static int stringSize(long x) {
         long p = 10;
         for (int i=1; i<19; i++) {
