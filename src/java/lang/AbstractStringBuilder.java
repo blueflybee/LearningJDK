@@ -365,6 +365,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Returns the index within this sequence that is offset from the
      * given {@code index} by {@code codePointOffset} code
      * points. Unpaired surrogates within the text range given by
@@ -383,6 +384,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      *   before {@code index} has fewer than the absolute value of
      *   {@code codePointOffset} code points.
      */
+    //在index基础上，偏移codePointOffset个code point后的索引，初始等于index
     public int offsetByCodePoints(int index, int codePointOffset) {
         if (index < 0 || index > count) {
             throw new IndexOutOfBoundsException();
@@ -392,6 +394,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Characters are copied from this sequence into the
      * destination character array {@code dst}. The first character to
      * be copied is at index {@code srcBegin}; the last character to
@@ -431,6 +434,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * The character at the specified index is set to {@code ch}. This
      * sequence is altered to represent a new character sequence that is
      * identical to the old character sequence, except that it contains the
@@ -451,6 +455,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Appends the string representation of the {@code Object} argument.
      * <p>
      * The overall effect is exactly as if the argument were converted
@@ -466,6 +471,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Appends the specified string to this character sequence.
      * <p>
      * The characters of the {@code String} argument are appended, in
@@ -493,6 +499,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
         return this;
     }
 
+    //ok>>
     // Documentation in subclasses because of synchro difference
     public AbstractStringBuilder append(StringBuffer sb) {
         if (sb == null)
@@ -507,6 +514,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     /**
      * @since 1.8
      */
+    //ok>>
     AbstractStringBuilder append(AbstractStringBuilder asb) {
         if (asb == null)
             return appendNull();
@@ -517,6 +525,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
         return this;
     }
 
+    //ok>>
     // Documentation in subclasses because of synchro difference
     @Override
     public AbstractStringBuilder append(CharSequence s) {
@@ -530,6 +539,8 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
         return this.append(s, 0, s.length());
     }
 
+    //ok>>
+    //使用局部变量操作，扩容确保容量足够，append "null"
     private AbstractStringBuilder appendNull() {
         int c = count;
         ensureCapacityInternal(c + 4);
@@ -543,6 +554,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Appends a subsequence of the specified {@code CharSequence} to this
      * sequence.
      * <p>
@@ -588,6 +600,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Appends the string representation of the {@code char} array
      * argument to this sequence.
      * <p>
@@ -612,6 +625,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Appends the string representation of a subarray of the
      * {@code char} array argument to this sequence.
      * <p>
@@ -642,6 +656,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Appends the string representation of the {@code boolean}
      * argument to the sequence.
      * <p>
@@ -672,6 +687,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Appends the string representation of the {@code char}
      * argument to this sequence.
      * <p>
