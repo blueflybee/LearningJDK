@@ -453,6 +453,12 @@ public final class Integer extends Number implements Comparable<Integer> {
         // Fall thru to fast mode for smaller numbers
         // assert(i <= 65536, i);
         for (;;) {
+            //因为2<<(16+3)=2<<19=524288,
+            // (i * 52429)>>>(16+3) = i*52429/524288=
+            //52429.0/524288=0.1000003814697......
+            //6位的精度已经足够多了，所以就是i*0.1。
+            //q = i * 0.1000003814697
+            //位移操作效率比较高
             q = (i * 52429) >>> (16+3);
             r = i - ((q << 3) + (q << 1));  // r = i-(q*10) ...
             buf [--charPos] = digits [r];
@@ -468,6 +474,8 @@ public final class Integer extends Number implements Comparable<Integer> {
                                       99999999, 999999999, Integer.MAX_VALUE };
 
     // Requires positive x
+    //ok>>
+    //返回传入的int值的位数，也即需要转换成字符串的长度
     static int stringSize(int x) {
         for (int i=0; ; i++)
             if (x <= sizeTable[i])
