@@ -722,10 +722,13 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      * @return  a reference to this object.
      */
     public AbstractStringBuilder append(int i) {
+        //此处i == Integer.MIN_VALUE单独处理
+        //是因为Integer.getChars(i, spaceNeeded, value)方法无法处理i == Integer.MIN_VALUE的情况
         if (i == Integer.MIN_VALUE) {
             append("-2147483648");
             return this;
         }
+        //计算需要转换成string的长度，如果int是负数，需要加上一个符号长度
         int appendedLength = (i < 0) ? Integer.stringSize(-i) + 1
                                      : Integer.stringSize(i);
         int spaceNeeded = count + appendedLength;
