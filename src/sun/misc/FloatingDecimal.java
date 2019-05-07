@@ -90,6 +90,7 @@ public class FloatingDecimal{
     }
 
     /**
+     * ok>>
      * Appends a single precision floating point value to an <code>Appendable</code>.
      * @param f The single precision value.
      * @param buf The <code>Appendable</code> with the value appended.
@@ -123,42 +124,50 @@ public class FloatingDecimal{
     }
 
     /**
+     * ok>>
      * A converter which can process single or double precision floating point
      * values into an ASCII <code>String</code> representation.
      */
     public interface BinaryToASCIIConverter {
         /**
+         * ok>>
          * Converts a floating point value into an ASCII <code>String</code>.
          * @return The value converted to a <code>String</code>.
          */
         public String toJavaFormatString();
 
         /**
+         * ok>>
          * Appends a floating point value to an <code>Appendable</code>.
          * @param buf The <code>Appendable</code> to receive the value.
          */
         public void appendTo(Appendable buf);
 
         /**
+         * ok>>
          * Retrieves the decimal exponent most closely corresponding to this value.
          * @return The decimal exponent.
          */
         public int getDecimalExponent();
 
         /**
+         * ok>>
          * Retrieves the value as an array of digits.
          * @param digits The digit array.
          * @return The number of valid digits copied into the array.
          */
+        //把数字值转换成相应的char值copy到digits中
         public int getDigits(char[] digits);
 
         /**
+         * ok>>
          * Indicates the sign of the value.
          * @return <code>value < 0.0</code>.
          */
         public boolean isNegative();
 
         /**
+         * ok>>
          * Indicates whether the value is either infinite or not a number.
          *
          * @return <code>true</code> if and only if the value is <code>NaN</code>
@@ -167,18 +176,22 @@ public class FloatingDecimal{
         public boolean isExceptional();
 
         /**
+         * ok>>
          * Indicates whether the value was rounded up during the binary to ASCII
          * conversion.
          *
          * @return <code>true</code> if and only if the value was rounded up.
          */
+        //在这个数字从二进制被转换成ASCII值的过程中，是否进行了四舍五入操作
         public boolean digitsRoundedUp();
 
         /**
+         * ok>>
          * Indicates whether the binary to ASCII conversion was exact.
          *
          * @return <code>true</code> if any only if the conversion was exact.
          */
+        //从二进制被转换成ASCII值是否是精确转换
         public boolean decimalDigitsExact();
     }
 

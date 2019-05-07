@@ -767,6 +767,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Appends the string representation of the {@code float}
      * argument to this sequence.
      * <p>
