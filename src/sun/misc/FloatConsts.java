@@ -31,7 +31,8 @@ package sun.misc;
  *
  * @author Joseph D. Darcy
  */
-
+//IEEE 754定义的浮点数表示标准中一些常量和边界值
+//日常开发中可以直接使用，比较方便
 public class FloatConsts {
     /**
      * Don't let anyone instantiate this class.
@@ -45,6 +46,7 @@ public class FloatConsts {
     public static final float MIN_VALUE = Float.MIN_VALUE;
 
     /**
+     * ok>>
      * A constant holding the smallest positive normal value of type
      * <code>float</code>, 2<sup>-126</sup>.  It is equal to the value
      * returned by <code>Float.intBitsToFloat(0x00800000)</code>.
@@ -52,23 +54,32 @@ public class FloatConsts {
     public static final float   MIN_NORMAL      = 1.17549435E-38f;
 
     /**
+     *
      * The number of logical bits in the significand of a
      * <code>float</code> number, including the implicit bit.
      */
     public static final int SIGNIFICAND_WIDTH   = 24;
 
     /**
+     * ok>>
      * Maximum exponent a finite <code>float</code> number may have.
      * It is equal to the value returned by
      * <code>Math.ilogb(Float.MAX_VALUE)</code>.
      */
+    //E＝1（0000 0001）~254（1111 1110）
+    //e＝-126 ~ +127
+    //指数e的最大值
     public static final int     MAX_EXPONENT    = 127;
 
     /**
+     * ok>>
      * Minimum exponent a normalized <code>float</code> number may
      * have.  It is equal to the value returned by
      * <code>Math.ilogb(Float.MIN_NORMAL)</code>.
      */
+    //E＝1（0000 0001）~254（1111 1110）
+    //e＝-126 ~ +127
+    //指数e的最小值
     public static final int     MIN_EXPONENT    = -126;
 
     /**

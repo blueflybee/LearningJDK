@@ -1800,6 +1800,7 @@ public class FloatingDecimal{
     }
 
     private static BinaryToASCIIConverter getBinaryToASCIIConverter(float f) {
+        //float值转化为32位内部二进制存储值的int值
         int fBits = Float.floatToRawIntBits( f );
         boolean isNegative = (fBits&FloatConsts.SIGN_BIT_MASK) != 0;
         int fractBits = fBits&FloatConsts.SIGNIF_BIT_MASK;
