@@ -199,6 +199,7 @@ public class FloatingDecimal{
      * A <code>BinaryToASCIIConverter</code> which represents <code>NaN</code>
      * and infinite values.
      */
+    //ExceptionalBinaryToASCIIBuffer表示无穷值和非数的情况的转换器
     private static class ExceptionalBinaryToASCIIBuffer implements BinaryToASCIIConverter {
         final private String image;
         private boolean isNegative;
@@ -260,6 +261,7 @@ public class FloatingDecimal{
     private static final String NAN_REP = "NaN";
     private static final int NAN_LENGTH = NAN_REP.length();
 
+    //特殊值转换器
     private static final BinaryToASCIIConverter B2AC_POSITIVE_INFINITY = new ExceptionalBinaryToASCIIBuffer(INFINITY_REP, false);
     private static final BinaryToASCIIConverter B2AC_NEGATIVE_INFINITY = new ExceptionalBinaryToASCIIBuffer("-" + INFINITY_REP, true);
     private static final BinaryToASCIIConverter B2AC_NOT_A_NUMBER = new ExceptionalBinaryToASCIIBuffer(NAN_REP, false);
@@ -1799,14 +1801,23 @@ public class FloatingDecimal{
         return buf;
     }
 
+    //单精度浮点数BinaryToASCIIConverter获取方法
+    //简单工厂方法，返回多种不同类型的转换器
     private static BinaryToASCIIConverter getBinaryToASCIIConverter(float f) {
         //float值转化为32位内部二进制存储值的int值
         int fBits = Float.floatToRawIntBits( f );
+        //获取符号位
         boolean isNegative = (fBits&FloatConsts.SIGN_BIT_MASK) != 0;
+        //获取23位尾数部分
         int fractBits = fBits&FloatConsts.SIGNIF_BIT_MASK;
+        //获取阶码E部分，并右移23位，去除尾数部分
         int binExp = (fBits&FloatConsts.EXP_BIT_MASK) >> SINGLE_EXP_SHIFT;
         // Discover obvious special cases of NaN and Infinity.
+        //根据IEEE 754标准定义的几类特殊浮点数来判断
         if ( binExp == (FloatConsts.EXP_BIT_MASK>>SINGLE_EXP_SHIFT) ) {
+            //如果E是全1，尾数M==0,符号位为1则为正无穷
+            //如果E是全1，尾数M==0,符号位为0则为负无穷
+            //如果E是全1，尾数M!=0,符号位为0则为NaN（not a number，不是一个数）
             if ( fractBits == 0L ){
                 return isNegative ? B2AC_NEGATIVE_INFINITY : B2AC_POSITIVE_INFINITY;
             } else {
@@ -1818,9 +1829,11 @@ public class FloatingDecimal{
         // Insert assumed high-order bit for normalized numbers.
         // Subtract exponent bias.
         int  nSignificantBits;
+        //真值0判断阶码E＝0，尾数M＝0
         if ( binExp == 0 ){
             if ( fractBits == 0 ){
                 // not a denorm, just a 0!
+                //正0：S＝0，负0：S＝1
                 return isNegative ? B2AC_NEGATIVE_ZERO : B2AC_POSITIVE_ZERO;
             }
             int leadingZeros = Integer.numberOfLeadingZeros(fractBits);

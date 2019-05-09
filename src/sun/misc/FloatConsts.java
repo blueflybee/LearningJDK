@@ -26,6 +26,7 @@
 package sun.misc;
 
 /**
+ * ok>>
  * This class contains additional constants documenting limits of the
  * <code>float</code> type.
  *
@@ -54,7 +55,6 @@ public class FloatConsts {
     public static final float   MIN_NORMAL      = 1.17549435E-38f;
 
     /**
-     *
      * The number of logical bits in the significand of a
      * <code>float</code> number, including the implicit bit.
      */
@@ -96,25 +96,33 @@ public class FloatConsts {
     public static final int     EXP_BIAS        = 127;
 
     /**
+     * ok>>
      * Bit mask to isolate the sign bit of a <code>float</code>.
      */
+    //1位符号位取值掩码，可以与其它32位浮点数按位与操作，获取其符号部分
     public static final int     SIGN_BIT_MASK   = 0x80000000;
 
     /**
+     * ok>>
      * Bit mask to isolate the exponent field of a
      * <code>float</code>.
      */
+    //8位阶码位取值掩码，可以与其它32位浮点数按位与操作，获取其阶码部分
     public static final int     EXP_BIT_MASK    = 0x7F800000;
 
     /**
+     * ok>>
      * Bit mask to isolate the significand field of a
      * <code>float</code>.
      */
+    //23位尾数位取值掩码，可以与其它32位浮点数按位与操作，获取其尾数部分
     public static final int     SIGNIF_BIT_MASK = 0x007FFFFF;
 
+    //ok>>
     static {
         // verify bit masks cover all bit positions and that the bit
         // masks are non-overlapping
+        //确保bit掩码覆盖所有的位且没有重叠部分
         assert(((SIGN_BIT_MASK | EXP_BIT_MASK | SIGNIF_BIT_MASK) == ~0) &&
                (((SIGN_BIT_MASK & EXP_BIT_MASK) == 0) &&
                 ((SIGN_BIT_MASK & SIGNIF_BIT_MASK) == 0) &&
