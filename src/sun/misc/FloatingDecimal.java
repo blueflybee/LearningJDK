@@ -81,6 +81,7 @@ public class FloatingDecimal{
     }
 
     /**
+     * ok>>
      * Appends a double precision floating point value to an <code>Appendable</code>.
      * @param d The double precision value.
      * @param buf The <code>Appendable</code> with the value appended.

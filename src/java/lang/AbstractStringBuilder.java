@@ -785,6 +785,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Appends the string representation of the {@code double}
      * argument to this sequence.
      * <p>
