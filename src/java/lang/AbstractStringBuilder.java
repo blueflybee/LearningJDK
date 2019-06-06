@@ -803,6 +803,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Removes the characters in a substring of this sequence.
      * The substring begins at the specified {@code start} and extends to
      * the character at index {@code end - 1} or to the end of the
@@ -825,6 +826,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
             throw new StringIndexOutOfBoundsException();
         int len = end - start;
         if (len > 0) {
+            //把end位置到count的char数组序列copy到star开始的位置，覆盖原有内容，相当于删掉指定的区域
             System.arraycopy(value, start+len, value, start, count-end);
             count -= len;
         }
@@ -832,6 +834,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Appends the string representation of the {@code codePoint}
      * argument to this sequence.
      *
@@ -853,12 +856,18 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     public AbstractStringBuilder appendCodePoint(int codePoint) {
         final int count = this.count;
 
+        //如果是BMP（U+0000 to U+FFFF)，codePoint的值可以用一个char（两个字节）表示
         if (Character.isBmpCodePoint(codePoint)) {
+            //这里只需扩容1位
             ensureCapacityInternal(count + 1);
             value[count] = (char) codePoint;
             this.count = count + 1;
-        } else if (Character.isValidCodePoint(codePoint)) {
+        }
+        //如果是其它unicode值，需要用两个char表示
+        else if (Character.isValidCodePoint(codePoint)) {
+            //需要空扩容2位
             ensureCapacityInternal(count + 2);
+            //编码转换为高代理和低代理，存储在两个char中
             Character.toSurrogates(codePoint, value, count);
             this.count = count + 2;
         } else {
@@ -868,6 +877,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Removes the {@code char} at the specified position in this
      * sequence. This sequence is shortened by one {@code char}.
      *
@@ -932,6 +942,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Returns a new {@code String} that contains a subsequence of
      * characters currently contained in this character sequence. The
      * substring begins at the specified index and extends to the end of
@@ -947,6 +958,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Returns a new character sequence that is a subsequence of this sequence.
      *
      * <p> An invocation of this method of the form
@@ -978,6 +990,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Returns a new {@code String} that contains a subsequence of
      * characters currently contained in this sequence. The
      * substring begins at the specified {@code start} and
@@ -1002,6 +1015,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Inserts the string representation of a subarray of the {@code str}
      * array argument into this sequence. The subarray begins at the
      * specified {@code offset} and extends {@code len} {@code char}s.
@@ -1032,7 +1046,9 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
                 "offset " + offset + ", len " + len + ", str.length "
                 + str.length);
         ensureCapacityInternal(count + len);
+        //后移len个位置，为插入腾出空位
         System.arraycopy(value, index, value, index + len, count - index);
+        //在腾出的位置上把str copy进来
         System.arraycopy(str, offset, value, index, len);
         count += len;
         return this;
@@ -1062,6 +1078,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Inserts the string into this character sequence.
      * <p>
      * The characters of the {@code String} argument are inserted, in
@@ -1100,12 +1117,14 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
         int len = str.length();
         ensureCapacityInternal(count + len);
         System.arraycopy(value, offset, value, offset + len, count - offset);
+        //copy
         str.getChars(value, offset);
         count += len;
         return this;
     }
 
     /**
+     * ok>>
      * Inserts the string representation of the {@code char} array
      * argument into this sequence.
      * <p>
@@ -1141,6 +1160,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Inserts the specified {@code CharSequence} into this sequence.
      * <p>
      * The characters of the {@code CharSequence} argument are inserted,
@@ -1170,6 +1190,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Inserts a subsequence of the specified {@code CharSequence} into
      * this sequence.
      * <p>
@@ -1227,6 +1248,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
         ensureCapacityInternal(count + len);
         System.arraycopy(value, dstOffset, value, dstOffset + len,
                          count - dstOffset);
+        //copy 其它实现了CharSequence接口的对象
         for (int i=start; i<end; i++)
             value[dstOffset++] = s.charAt(i);
         count += len;
@@ -1234,6 +1256,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Inserts the string representation of the {@code boolean}
      * argument into this sequence.
      * <p>
@@ -1257,6 +1280,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Inserts the string representation of the {@code char}
      * argument into this sequence.
      * <p>
@@ -1284,6 +1308,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Inserts the string representation of the second {@code int}
      * argument into this sequence.
      * <p>
@@ -1307,6 +1332,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Inserts the string representation of the {@code long}
      * argument into this sequence.
      * <p>
@@ -1330,6 +1356,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Inserts the string representation of the {@code float}
      * argument into this sequence.
      * <p>
@@ -1353,6 +1380,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Inserts the string representation of the {@code double}
      * argument into this sequence.
      * <p>
