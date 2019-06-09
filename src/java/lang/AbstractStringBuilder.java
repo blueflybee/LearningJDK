@@ -1404,6 +1404,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Returns the index within this string of the first occurrence of the
      * specified substring. The integer returned is the smallest value
      * <i>k</i> such that:
@@ -1423,6 +1424,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Returns the index within this string of the first occurrence of the
      * specified substring, starting at the specified index.  The integer
      * returned is the smallest value {@code k} for which:
@@ -1442,6 +1444,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     }
 
     /**
+     * ok>>
      * Returns the index within this string of the rightmost occurrence
      * of the specified substring.  The rightmost empty string "" is
      * considered to occur at the index value {@code this.length()}.
@@ -1480,7 +1483,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
         return String.lastIndexOf(value, 0, count, str, fromIndex);
     }
 
-    /**
+    /**ok>>
      * Causes this character sequence to be replaced by the reverse of
      * the sequence. If there are any surrogate pairs included in the
      * sequence, these are treated as single characters for the
@@ -1502,11 +1505,16 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      *
      * @return  a reference to this object.
      */
+    //该方法不反转代理顺序
     public AbstractStringBuilder reverse() {
         boolean hasSurrogates = false;
         int n = count - 1;
+        //把所有value中所有char进行顺序反转（包括代理）
         for (int j = (n-1) >> 1; j >= 0; j--) {
             int k = n - j;
+            //j=count-k-1
+            //k=k
+            //交换位置
             char cj = value[j];
             char ck = value[k];
             value[j] = ck;
@@ -1516,6 +1524,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
                 hasSurrogates = true;
             }
         }
+        //如果有代理位，再修正代理顺序
         if (hasSurrogates) {
             reverseAllValidSurrogatePairs();
         }
@@ -1524,11 +1533,13 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
 
     /** Outlined helper method for reverse() */
     private void reverseAllValidSurrogatePairs() {
+        //此时代理对顺序被倒转，所以需要调换高位代理和低位代理的顺序
         for (int i = 0; i < count - 1; i++) {
             char c2 = value[i];
             if (Character.isLowSurrogate(c2)) {
                 char c1 = value[i + 1];
                 if (Character.isHighSurrogate(c1)) {
+                    //交换顺序，恢复代理原来顺序
                     value[i++] = c1;
                     value[i] = c2;
                 }
@@ -1550,6 +1561,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     public abstract String toString();
 
     /**
+     * ok>>
      * Needed by {@code String} for the contentEquals method.
      */
     final char[] getValue() {
