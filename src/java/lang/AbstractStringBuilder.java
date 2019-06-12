@@ -29,6 +29,7 @@ import sun.misc.FloatingDecimal;
 import java.util.Arrays;
 
 /**
+ * ok>>
  * A mutable sequence of characters.
  * <p>
  * Implements a modifiable string. At any point in time it contains some
