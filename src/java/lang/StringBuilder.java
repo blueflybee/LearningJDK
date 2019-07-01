@@ -27,6 +27,7 @@ package java.lang;
 
 
 /**
+ * ok>>
  * A mutable sequence of characters.  This class provides an API compatible
  * with {@code StringBuffer}, but with no guarantee of synchronization.
  * This class is designed for use as a drop-in replacement for
