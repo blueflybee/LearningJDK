@@ -118,8 +118,7 @@ import sun.util.spi.XmlPropertiesProvider;
  * @author  Xueming Shen
  * @since   JDK1.0
  */
-public
-class Properties extends Hashtable<Object,Object> {
+public class Properties extends Hashtable<Object,Object> {
     /**
      * use serialVersionUID from JDK 1.1.X for interoperability
      */

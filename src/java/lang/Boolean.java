@@ -26,6 +26,7 @@
 package java.lang;
 
 /**
+ * ok>>
  * The Boolean class wraps a value of the primitive type
  * {@code boolean} in an object. An object of type
  * {@code Boolean} contains a single field whose type is
@@ -106,6 +107,7 @@ public final class Boolean implements java.io.Serializable,
     }
 
     /**
+     * ok>>
      * Parses the string argument as a boolean.  The {@code boolean}
      * returned represents the value {@code true} if the string argument
      * is not {@code null} and is equal, ignoring case, to the string
@@ -123,6 +125,7 @@ public final class Boolean implements java.io.Serializable,
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Boolean} object as a boolean
      * primitive.
      *
@@ -133,6 +136,7 @@ public final class Boolean implements java.io.Serializable,
     }
 
     /**
+     * ok>>
      * Returns a {@code Boolean} instance representing the specified
      * {@code boolean} value.  If the specified {@code boolean} value
      * is {@code true}, this method returns {@code Boolean.TRUE};
@@ -151,6 +155,7 @@ public final class Boolean implements java.io.Serializable,
     }
 
     /**
+     * ok>>
      * Returns a {@code Boolean} with a value represented by the
      * specified string.  The {@code Boolean} returned represents a
      * true value if the string argument is not {@code null}
@@ -164,6 +169,7 @@ public final class Boolean implements java.io.Serializable,
     }
 
     /**
+     * ok>>
      * Returns a {@code String} object representing the specified
      * boolean.  If the specified boolean is {@code true}, then
      * the string {@code "true"} will be returned, otherwise the
@@ -178,6 +184,7 @@ public final class Boolean implements java.io.Serializable,
     }
 
     /**
+     * ok>>
      * Returns a {@code String} object representing this Boolean's
      * value.  If this object represents the value {@code true},
      * a string equal to {@code "true"} is returned. Otherwise, a
@@ -190,6 +197,7 @@ public final class Boolean implements java.io.Serializable,
     }
 
     /**
+     * ok>>
      * Returns a hash code for this {@code Boolean} object.
      *
      * @return  the integer {@code 1231} if this object represents
@@ -202,6 +210,7 @@ public final class Boolean implements java.io.Serializable,
     }
 
     /**
+     * ok>>
      * Returns a hash code for a {@code boolean} value; compatible with
      * {@code Boolean.hashCode()}.
      *
@@ -214,6 +223,7 @@ public final class Boolean implements java.io.Serializable,
     }
 
    /**
+    * ok>>
      * Returns {@code true} if and only if the argument is not
      * {@code null} and is a {@code Boolean} object that
      * represents the same {@code boolean} value as this object.
@@ -230,6 +240,7 @@ public final class Boolean implements java.io.Serializable,
     }
 
     /**
+     * ok>>
      * Returns {@code true} if and only if the system property
      * named by the argument exists and is equal to the string
      * {@code "true"}. (Beginning with version 1.0.2 of the
@@ -258,6 +269,7 @@ public final class Boolean implements java.io.Serializable,
     }
 
     /**
+     * ok>>
      * Compares this {@code Boolean} instance with another.
      *
      * @param   b the {@code Boolean} instance to be compared
@@ -292,6 +304,7 @@ public final class Boolean implements java.io.Serializable,
     }
 
     /**
+     * ok>>
      * Returns the result of applying the logical AND operator to the
      * specified {@code boolean} operands.
      *
@@ -306,6 +319,7 @@ public final class Boolean implements java.io.Serializable,
     }
 
     /**
+     * ok>>
      * Returns the result of applying the logical OR operator to the
      * specified {@code boolean} operands.
      *
@@ -320,6 +334,7 @@ public final class Boolean implements java.io.Serializable,
     }
 
     /**
+     * ok>>
      * Returns the result of applying the logical XOR operator to the
      * specified {@code boolean} operands.
      *

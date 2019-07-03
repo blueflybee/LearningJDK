@@ -26,7 +26,7 @@
 package java.lang;
 
 /**
- *
+ * ok>>
  * The {@code Byte} class wraps a value of primitive type {@code byte}
  * in an object.  An object of type {@code Byte} contains a single
  * field whose type is {@code byte}.
@@ -63,6 +63,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     public static final Class<Byte>     TYPE = (Class<Byte>) Class.getPrimitiveClass("byte");
 
     /**
+     * ok>>
      * Returns a new {@code String} object representing the
      * specified {@code byte}. The radix is assumed to be 10.
      *
@@ -86,6 +87,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Returns a {@code Byte} instance representing the specified
      * {@code byte} value.
      * If a new {@code Byte} instance is not required, this method
@@ -176,6 +178,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Returns a {@code Byte} object holding the value
      * extracted from the specified {@code String} when parsed
      * with the radix given by the second argument. The first argument
@@ -206,6 +209,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Returns a {@code Byte} object holding the value
      * given by the specified {@code String}. The argument is
      * interpreted as representing a signed decimal {@code byte},
@@ -232,6 +236,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Decodes a {@code String} into a {@code Byte}.
      * Accepts decimal, hexadecimal, and octal numbers given by
      * the following grammar:
@@ -289,6 +294,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     private final byte value;
 
     /**
+     * ok>>
      * Constructs a newly allocated {@code Byte} object that
      * represents the specified {@code byte} value.
      *
@@ -300,6 +306,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Constructs a newly allocated {@code Byte} object that
      * represents the {@code byte} value indicated by the
      * {@code String} parameter. The string is converted to a
@@ -317,6 +324,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Byte} as a
      * {@code byte}.
      */
@@ -325,6 +333,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Byte} as a {@code short} after
      * a widening primitive conversion.
      * @jls 5.1.2 Widening Primitive Conversions
@@ -334,6 +343,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Byte} as an {@code int} after
      * a widening primitive conversion.
      * @jls 5.1.2 Widening Primitive Conversions
@@ -343,6 +353,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Byte} as a {@code long} after
      * a widening primitive conversion.
      * @jls 5.1.2 Widening Primitive Conversions
@@ -352,6 +363,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Byte} as a {@code float} after
      * a widening primitive conversion.
      * @jls 5.1.2 Widening Primitive Conversions
@@ -361,6 +373,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Byte} as a {@code double}
      * after a widening primitive conversion.
      * @jls 5.1.2 Widening Primitive Conversions
@@ -370,6 +383,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Returns a {@code String} object representing this
      * {@code Byte}'s value.  The value is converted to signed
      * decimal representation and returned as a string, exactly as if
@@ -384,6 +398,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Returns a hash code for this {@code Byte}; equal to the result
      * of invoking {@code intValue()}.
      *
@@ -395,6 +410,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Returns a hash code for a {@code byte} value; compatible with
      * {@code Byte.hashCode()}.
      *
@@ -407,6 +423,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Compares this object to the specified object.  The result is
      * {@code true} if and only if the argument is not
      * {@code null} and is a {@code Byte} object that
@@ -424,6 +441,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Compares two {@code Byte} objects numerically.
      *
      * @param   anotherByte   the {@code Byte} to be compared.
@@ -441,6 +459,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Compares two {@code byte} values numerically.
      * The value returned is identical to what would be returned by:
      * <pre>
@@ -459,6 +478,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Converts the argument to an {@code int} by an unsigned
      * conversion.  In an unsigned conversion to an {@code int}, the
      * high-order 24 bits of the {@code int} are zero and the
@@ -479,6 +499,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     }
 
     /**
+     * ok>>
      * Converts the argument to a {@code long} by an unsigned
      * conversion.  In an unsigned conversion to a {@code long}, the
      * high-order 56 bits of the {@code long} are zero and the

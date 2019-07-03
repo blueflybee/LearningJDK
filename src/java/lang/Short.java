@@ -493,6 +493,7 @@ public final class Short extends Number implements Comparable<Short> {
 
 
     /**
+     * ok>>
      * Converts the argument to an {@code int} by an unsigned
      * conversion.  In an unsigned conversion to an {@code int}, the
      * high-order 16 bits of the {@code int} are zero and the
@@ -513,6 +514,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Converts the argument to a {@code long} by an unsigned
      * conversion.  In an unsigned conversion to a {@code long}, the
      * high-order 48 bits of the {@code long} are zero and the
