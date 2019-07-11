@@ -1264,6 +1264,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Converts the argument to a {@code long} by an unsigned
      * conversion.  In an unsigned conversion to a {@code long}, the
      * high-order 32 bits of the {@code long} are zero and the
@@ -1285,6 +1286,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns the unsigned quotient of dividing the first argument by
      * the second where each argument and the result is interpreted as
      * an unsigned value.
@@ -1308,6 +1310,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns the unsigned remainder from dividing the first argument
      * by the second where each argument and the result is interpreted
      * as an unsigned value.
@@ -1385,6 +1388,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns the number of zero bits preceding the highest-order
      * ("leftmost") one-bit in the two's complement binary representation
      * of the specified {@code int} value.  Returns 32 if the
@@ -1419,6 +1423,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns the number of zero bits following the lowest-order ("rightmost")
      * one-bit in the two's complement binary representation of the specified
      * {@code int} value.  Returns 32 if the specified value has no
@@ -1445,6 +1450,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns the number of one-bits in the two's complement binary
      * representation of the specified {@code int} value.  This function is
      * sometimes referred to as the <i>population count</i>.
@@ -1454,6 +1460,8 @@ public final class Integer extends Number implements Comparable<Integer> {
      *     representation of the specified {@code int} value.
      * @since 1.5
      */
+    //计算int数值二进制形式中比特位为1的个数
+    //比如：0返回0, 1返回1, 3返回2
     public static int bitCount(int i) {
         // HD, Figure 5-2
         i = i - ((i >>> 1) & 0x55555555);
@@ -1484,11 +1492,13 @@ public final class Integer extends Number implements Comparable<Integer> {
      *     specified number of bits.
      * @since 1.5
      */
+    //左移1位相当于除以2^1，右移2位相当于除以2^2，以此类推
     public static int rotateLeft(int i, int distance) {
         return (i << distance) | (i >>> -distance);
     }
 
     /**
+     * ok>>
      * Returns the value obtained by rotating the two's complement binary
      * representation of the specified {@code int} value right by the
      * specified number of bits.  (Bits shifted out of the right hand, or
@@ -1508,6 +1518,7 @@ public final class Integer extends Number implements Comparable<Integer> {
      *     specified number of bits.
      * @since 1.5
      */
+    //右移1位相当于乘以2^1，右移2位相当于乘以2^2，以此类推
     public static int rotateRight(int i, int distance) {
         return (i >>> distance) | (i << -distance);
     }
@@ -1547,6 +1558,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns the value obtained by reversing the order of the bytes in the
      * two's complement representation of the specified {@code int} value.
      *
@@ -1555,6 +1567,9 @@ public final class Integer extends Number implements Comparable<Integer> {
      *     {@code int} value.
      * @since 1.5
      */
+    //按字节倒序排列
+    // input: 0x12345678
+    //output: 0x78563412
     public static int reverseBytes(int i) {
         return ((i >>> 24)           ) |
                ((i >>   8) &   0xFF00) |
@@ -1563,6 +1578,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Adds two integers together as per the + operator.
      *
      * @param a the first operand
@@ -1576,6 +1592,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns the greater of two {@code int} values
      * as if by calling {@link Math#max(int, int) Math.max}.
      *
@@ -1590,6 +1607,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns the smaller of two {@code int} values
      * as if by calling {@link Math#min(int, int) Math.min}.
      *

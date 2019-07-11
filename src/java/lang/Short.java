@@ -26,6 +26,7 @@
 package java.lang;
 
 /**
+ * ok>>
  * The {@code Short} class wraps a value of primitive type {@code
  * short} in an object.  An object of type {@code Short} contains a
  * single field whose type is {@code short}.
@@ -62,6 +63,7 @@ public final class Short extends Number implements Comparable<Short> {
     public static final Class<Short>    TYPE = (Class<Short>) Class.getPrimitiveClass("short");
 
     /**
+     * ok>>
      * Returns a new {@code String} object representing the
      * specified {@code short}. The radix is assumed to be 10.
      *
@@ -74,6 +76,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Parses the string argument as a signed {@code short} in the
      * radix specified by the second argument. The characters in the
      * string must all be digits, of the specified radix (as
@@ -123,6 +126,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Parses the string argument as a signed decimal {@code
      * short}. The characters in the string must all be decimal
      * digits, except that the first character may be an ASCII minus
@@ -145,6 +149,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Returns a {@code Short} object holding the value
      * extracted from the specified {@code String} when parsed
      * with the radix given by the second argument. The first argument
@@ -175,6 +180,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Returns a {@code Short} object holding the
      * value given by the specified {@code String}. The argument
      * is interpreted as representing a signed decimal
@@ -212,6 +218,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Returns a {@code Short} instance representing the specified
      * {@code short} value.
      * If a new {@code Short} instance is not required, this method
@@ -237,6 +244,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Decodes a {@code String} into a {@code Short}.
      * Accepts decimal, hexadecimal, and octal numbers given by
      * the following grammar:
@@ -294,6 +302,7 @@ public final class Short extends Number implements Comparable<Short> {
     private final short value;
 
     /**
+     * ok>>
      * Constructs a newly allocated {@code Short} object that
      * represents the specified {@code short} value.
      *
@@ -305,6 +314,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Constructs a newly allocated {@code Short} object that
      * represents the {@code short} value indicated by the
      * {@code String} parameter. The string is converted to a
@@ -322,6 +332,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Short} as a {@code byte} after
      * a narrowing primitive conversion.
      * @jls 5.1.3 Narrowing Primitive Conversions
@@ -331,6 +342,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Short} as a
      * {@code short}.
      */
@@ -339,6 +351,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Short} as an {@code int} after
      * a widening primitive conversion.
      * @jls 5.1.2 Widening Primitive Conversions
@@ -348,6 +361,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Short} as a {@code long} after
      * a widening primitive conversion.
      * @jls 5.1.2 Widening Primitive Conversions
@@ -357,6 +371,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Short} as a {@code float}
      * after a widening primitive conversion.
      * @jls 5.1.2 Widening Primitive Conversions
@@ -366,6 +381,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Short} as a {@code double}
      * after a widening primitive conversion.
      * @jls 5.1.2 Widening Primitive Conversions
@@ -375,6 +391,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Returns a {@code String} object representing this
      * {@code Short}'s value.  The value is converted to signed
      * decimal representation and returned as a string, exactly as if
@@ -389,6 +406,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Returns a hash code for this {@code Short}; equal to the result
      * of invoking {@code intValue()}.
      *
@@ -400,6 +418,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Returns a hash code for a {@code short} value; compatible with
      * {@code Short.hashCode()}.
      *
@@ -412,6 +431,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Compares this object to the specified object.  The result is
      * {@code true} if and only if the argument is not
      * {@code null} and is a {@code Short} object that
@@ -429,6 +449,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Compares two {@code Short} objects numerically.
      *
      * @param   anotherShort   the {@code Short} to be compared.
@@ -446,6 +467,7 @@ public final class Short extends Number implements Comparable<Short> {
     }
 
     /**
+     * ok>>
      * Compares two {@code short} values numerically.
      * The value returned is identical to what would be returned by:
      * <pre>
@@ -479,6 +501,7 @@ public final class Short extends Number implements Comparable<Short> {
     public static final int BYTES = SIZE / Byte.SIZE;
 
     /**
+     * ok>>
      * Returns the value obtained by reversing the order of the bytes in the
      * two's complement representation of the specified {@code short} value.
      *

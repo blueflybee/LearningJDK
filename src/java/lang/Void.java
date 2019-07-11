@@ -26,6 +26,7 @@
 package java.lang;
 
 /**
+ * ok>>
  * The {@code Void} class is an uninstantiable placeholder class to hold a
  * reference to the {@code Class} object representing the Java keyword
  * void.
