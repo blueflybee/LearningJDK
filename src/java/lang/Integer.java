@@ -1347,6 +1347,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     public static final int BYTES = SIZE / Byte.SIZE;
 
     /**
+     * ok>>
      * Returns an {@code int} value with at most a single one-bit, in the
      * position of the highest-order ("leftmost") one-bit in the specified
      * {@code int} value.  Returns zero if the specified value has no
@@ -1370,6 +1371,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns an {@code int} value with at most a single one-bit, in the
      * position of the lowest-order ("rightmost") one-bit in the specified
      * {@code int} value.  Returns zero if the specified value has no
