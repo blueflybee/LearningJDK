@@ -1213,6 +1213,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Compares two {@code Integer} objects numerically.
      *
      * @param   anotherInteger   the {@code Integer} to be compared.
@@ -1230,6 +1231,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Compares two {@code int} values numerically.
      * The value returned is identical to what would be returned by:
      * <pre>
@@ -1248,6 +1250,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Compares two {@code int} values numerically treating the values
      * as unsigned.
      *
