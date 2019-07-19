@@ -84,6 +84,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     };
 
     /**
+     * ok>>
      * Returns a string representation of the first argument in the
      * radix specified by the second argument.
      *
@@ -136,6 +137,7 @@ public final class Integer extends Number implements Comparable<Integer> {
             return toString(i);
         }
 
+        //保存转换结果
         char buf[] = new char[33];
         boolean negative = (i < 0);
         int charPos = 32;
@@ -144,6 +146,7 @@ public final class Integer extends Number implements Comparable<Integer> {
             i = -i;
         }
 
+        //不断取余，获取i的radix机制下的每一位数值并映射成对应的char
         while (i <= -radix) {
             buf[charPos--] = digits[-(i % radix)];
             i = i / radix;
@@ -158,6 +161,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns a string representation of the first argument as an
      * unsigned integer value in the radix specified by the second
      * argument.
@@ -188,6 +192,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns a string representation of the integer argument as an
      * unsigned integer in base&nbsp;16.
      *
@@ -234,6 +239,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns a string representation of the integer argument as an
      * unsigned integer in base&nbsp;8.
      *
@@ -272,6 +278,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns a string representation of the integer argument as an
      * unsigned integer in base&nbsp;2.
      *
@@ -304,11 +311,15 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Convert the integer to an unsigned number.
      */
     private static String toUnsignedString0(int val, int shift) {
         // assert shift > 0 && shift <=5 : "Illegal shift value";
+        //shift是进制的log2，如16机制为log2 16=4
+        //计算val的有效二进制位数
         int mag = Integer.SIZE - Integer.numberOfLeadingZeros(val);
+        //计算char数组的长度
         int chars = Math.max(((mag + (shift - 1)) / shift), 1);
         char[] buf = new char[chars];
 
@@ -319,6 +330,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Format a long (treated as unsigned) into a character buffer.
      * @param val the unsigned int to format
      * @param shift the log2 of the base to format in (4 for hex, 3 for octal, 1 for binary)
@@ -385,6 +397,7 @@ public final class Integer extends Number implements Comparable<Integer> {
         //
 
     /**
+     * ok>>
      * Returns a {@code String} object representing the
      * specified integer. The argument is converted to signed decimal
      * representation and returned as a string, exactly as if the
@@ -404,6 +417,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns a string representation of the argument as an unsigned
      * decimal value.
      *
@@ -488,6 +502,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Parses the string argument as a signed integer in the radix
      * specified by the second argument. The characters in the string
      * must all be digits of the specified radix (as determined by
@@ -586,6 +601,7 @@ public final class Integer extends Number implements Comparable<Integer> {
                 i++;
             }
             multmin = limit / radix;
+            //逐个char转换
             while (i < len) {
                 // Accumulating negatively avoids surprises near MAX_VALUE
                 digit = Character.digit(s.charAt(i++),radix);
@@ -595,10 +611,12 @@ public final class Integer extends Number implements Comparable<Integer> {
                 if (result < multmin) {
                     throw NumberFormatException.forInputString(s);
                 }
+                //提升一位
                 result *= radix;
                 if (result < limit + digit) {
                     throw NumberFormatException.forInputString(s);
                 }
+                //加上每位的值
                 result -= digit;
             }
         } else {
@@ -608,6 +626,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Parses the string argument as a signed decimal integer. The
      * characters in the string must all be decimal digits, except
      * that the first character may be an ASCII minus sign {@code '-'}
@@ -629,6 +648,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Parses the string argument as an unsigned integer in the radix
      * specified by the second argument.  An unsigned integer maps the
      * values usually associated with negative numbers to positive
@@ -705,6 +725,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Parses the string argument as an unsigned decimal integer. The
      * characters in the string must all be decimal digits, except
      * that the first character may be an an ASCII plus sign {@code
@@ -725,6 +746,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns an {@code Integer} object holding the value
      * extracted from the specified {@code String} when parsed
      * with the radix given by the second argument. The first argument
@@ -754,6 +776,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns an {@code Integer} object holding the
      * value of the specified {@code String}. The argument is
      * interpreted as representing a signed decimal integer, exactly
@@ -780,6 +803,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Cache to support the object identity semantics of autoboxing for values between
      * -128 and 127 (inclusive) as required by JLS.
      *
@@ -825,6 +849,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns an {@code Integer} instance representing the specified
      * {@code int} value.  If a new {@code Integer} instance is not
      * required, this method should generally be used in preference to
@@ -853,6 +878,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     private final int value;
 
     /**
+     * ok>>
      * Constructs a newly allocated {@code Integer} object that
      * represents the specified {@code int} value.
      *
@@ -864,6 +890,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Constructs a newly allocated {@code Integer} object that
      * represents the {@code int} value indicated by the
      * {@code String} parameter. The string is converted to an
@@ -881,6 +908,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Integer} as a {@code byte}
      * after a narrowing primitive conversion.
      * @jls 5.1.3 Narrowing Primitive Conversions
@@ -890,6 +918,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Integer} as a {@code short}
      * after a narrowing primitive conversion.
      * @jls 5.1.3 Narrowing Primitive Conversions
@@ -899,6 +928,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Integer} as an
      * {@code int}.
      */
@@ -907,6 +937,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Integer} as a {@code long}
      * after a widening primitive conversion.
      * @jls 5.1.2 Widening Primitive Conversions
@@ -917,6 +948,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Integer} as a {@code float}
      * after a widening primitive conversion.
      * @jls 5.1.2 Widening Primitive Conversions
@@ -926,6 +958,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns the value of this {@code Integer} as a {@code double}
      * after a widening primitive conversion.
      * @jls 5.1.2 Widening Primitive Conversions
@@ -935,6 +968,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns a {@code String} object representing this
      * {@code Integer}'s value. The value is converted to signed
      * decimal representation and returned as a string, exactly as if
@@ -949,6 +983,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns a hash code for this {@code Integer}.
      *
      * @return  a hash code value for this object, equal to the
@@ -961,6 +996,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns a hash code for a {@code int} value; compatible with
      * {@code Integer.hashCode()}.
      *
@@ -974,6 +1010,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Compares this object to the specified object.  The result is
      * {@code true} if and only if the argument is not
      * {@code null} and is an {@code Integer} object that
@@ -1072,6 +1109,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Returns the integer value of the system property with the
      * specified name.  The first argument is treated as the name of a
      * system property.  System properties are accessible through the
@@ -1124,6 +1162,7 @@ public final class Integer extends Number implements Comparable<Integer> {
     }
 
     /**
+     * ok>>
      * Decodes a {@code String} into an {@code Integer}.
      * Accepts decimal, hexadecimal, and octal numbers given
      * by the following grammar:
@@ -1284,6 +1323,8 @@ public final class Integer extends Number implements Comparable<Integer> {
      *         conversion
      * @since 1.8
      */
+    //正数返回原值，负数返回补码值
+    //如-1返回4294967295，即-1的补码（原码除符号位取反再加1）
     public static long toUnsignedLong(int x) {
         return ((long) x) & 0xffffffffL;
     }
